@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# IBM OpenAPI SDK Code Generator Version: 3.19.0-be3b4618-20201113-200858
+# IBM OpenAPI SDK Code Generator Version: 3.34.1-ad041667-20210617-195430
  
 """
 The Data Virtualization REST API connects to your service, so you can manage your virtual
