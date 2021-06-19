@@ -92,7 +92,7 @@ class TestDataVirtualizationV1():
             'ssl_certificate_host': 'testString',
             'ssl_certificate_validation': 'testString',
             'username': 'db2inst1',
-            'warehouse': 'testString'
+            'warehouse': 'testString',
         }
 
         add_datasource_connection_response = self.data_virtualization_service.add_datasource_connection(
@@ -166,13 +166,13 @@ class TestDataVirtualizationV1():
         # Construct a dict representation of a VirtualizeTableParameterSourceTableDefItem model
         virtualize_table_parameter_source_table_def_item_model = {
             'column_name': 'Column1',
-            'column_type': 'INTEGER'
+            'column_type': 'INTEGER',
         }
 
         # Construct a dict representation of a VirtualizeTableParameterVirtualTableDefItem model
         virtualize_table_parameter_virtual_table_def_item_model = {
             'column_name': 'Column_1',
-            'column_type': 'INTEGER'
+            'column_type': 'INTEGER',
         }
 
         dvaas_virtualize_table_response = self.data_virtualization_service.dvaas_virtualize_table(
@@ -216,7 +216,7 @@ class TestDataVirtualizationV1():
         # Construct a dict representation of a PostPrimaryCatalogParametersAssetsItem model
         post_primary_catalog_parameters_assets_item_model = {
             'schema': 'db2inst1',
-            'table': 'EMPLOYEE'
+            'table': 'EMPLOYEE',
         }
 
         publish_assets_response = self.data_virtualization_service.publish_assets(

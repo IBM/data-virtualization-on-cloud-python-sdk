@@ -28,12 +28,12 @@ import urllib
 from ibm_cloud.data_virtualization_v1 import *
 
 
-service = DataVirtualizationV1(
+_service = DataVirtualizationV1(
     authenticator=NoAuthAuthenticator()
     )
 
-base_url = 'https://fake'
-service.set_service_url(base_url)
+_base_url = 'https://fake'
+_service.set_service_url(_base_url)
 
 ##############################################################################
 # Start of Service: DataSources
@@ -60,7 +60,7 @@ class TestListDatasourceConnections():
         list_datasource_connections()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/v2/datasource/connections')
+        url = self.preprocess_url(_base_url + '/v2/datasource/connections')
         mock_response = '{"datasource_connections": [{"node_name": "node_name", "node_description": "node_description", "agent_class": "agent_class", "hostname": "hostname", "port": "port", "os_user": "os_user", "is_docker": "is_docker", "dscount": "dscount", "data_sources": [{"cid": "cid", "dbname": "dbname", "connection_id": "connection_id", "srchostname": "srchostname", "srcport": "srcport", "srctype": "srctype", "usr": "usr", "uri": "uri", "status": "status", "connection_name": "connection_name"}]}]}'
         responses.add(responses.GET,
                       url,
@@ -69,7 +69,7 @@ class TestListDatasourceConnections():
                       status=200)
 
         # Invoke method
-        response = service.list_datasource_connections()
+        response = _service.list_datasource_connections()
 
 
         # Check for correct operation
@@ -97,7 +97,7 @@ class TestAddDatasourceConnection():
         add_datasource_connection()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/v2/datasource/connections')
+        url = self.preprocess_url(_base_url + '/v2/datasource/connections')
         mock_response = '{"connection_id": "connection_id", "datasource_type": "datasource_type", "name": "name"}'
         responses.add(responses.POST,
                       url,
@@ -146,7 +146,7 @@ class TestAddDatasourceConnection():
         asset_category = 'testString'
 
         # Invoke method
-        response = service.add_datasource_connection(
+        response = _service.add_datasource_connection(
             datasource_type,
             name,
             origin_country,
@@ -173,7 +173,7 @@ class TestAddDatasourceConnection():
         test_add_datasource_connection_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/v2/datasource/connections')
+        url = self.preprocess_url(_base_url + '/v2/datasource/connections')
         mock_response = '{"connection_id": "connection_id", "datasource_type": "datasource_type", "name": "name"}'
         responses.add(responses.POST,
                       url,
@@ -231,7 +231,7 @@ class TestAddDatasourceConnection():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.add_datasource_connection(**req_copy)
+                _service.add_datasource_connection(**req_copy)
 
 
 
@@ -255,7 +255,7 @@ class TestDeleteDatasourceConnection():
         delete_datasource_connection()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/v2/datasource/connections/75e4d01b-7417-4abc-b267-8ffb393fb970')
+        url = self.preprocess_url(_base_url + '/v2/datasource/connections/75e4d01b-7417-4abc-b267-8ffb393fb970')
         responses.add(responses.DELETE,
                       url,
                       status=204)
@@ -265,7 +265,7 @@ class TestDeleteDatasourceConnection():
         cid = 'DB210013'
 
         # Invoke method
-        response = service.delete_datasource_connection(
+        response = _service.delete_datasource_connection(
             connection_id,
             cid=cid,
             headers={}
@@ -286,7 +286,7 @@ class TestDeleteDatasourceConnection():
         test_delete_datasource_connection_required_params()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/v2/datasource/connections/75e4d01b-7417-4abc-b267-8ffb393fb970')
+        url = self.preprocess_url(_base_url + '/v2/datasource/connections/75e4d01b-7417-4abc-b267-8ffb393fb970')
         responses.add(responses.DELETE,
                       url,
                       status=204)
@@ -295,7 +295,7 @@ class TestDeleteDatasourceConnection():
         connection_id = '75e4d01b-7417-4abc-b267-8ffb393fb970'
 
         # Invoke method
-        response = service.delete_datasource_connection(
+        response = _service.delete_datasource_connection(
             connection_id,
             headers={}
         )
@@ -311,7 +311,7 @@ class TestDeleteDatasourceConnection():
         test_delete_datasource_connection_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/v2/datasource/connections/75e4d01b-7417-4abc-b267-8ffb393fb970')
+        url = self.preprocess_url(_base_url + '/v2/datasource/connections/75e4d01b-7417-4abc-b267-8ffb393fb970')
         responses.add(responses.DELETE,
                       url,
                       status=204)
@@ -326,7 +326,7 @@ class TestDeleteDatasourceConnection():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.delete_datasource_connection(**req_copy)
+                _service.delete_datasource_connection(**req_copy)
 
 
 
@@ -360,7 +360,7 @@ class TestGrantUserToVirtualTable():
         grant_user_to_virtual_table()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/v2/privileges/users')
+        url = self.preprocess_url(_base_url + '/v2/privileges/users')
         responses.add(responses.POST,
                       url,
                       status=204)
@@ -371,7 +371,7 @@ class TestGrantUserToVirtualTable():
         authid = 'PUBLIC'
 
         # Invoke method
-        response = service.grant_user_to_virtual_table(
+        response = _service.grant_user_to_virtual_table(
             table_name,
             table_schema,
             authid,
@@ -394,7 +394,7 @@ class TestGrantUserToVirtualTable():
         test_grant_user_to_virtual_table_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/v2/privileges/users')
+        url = self.preprocess_url(_base_url + '/v2/privileges/users')
         responses.add(responses.POST,
                       url,
                       status=204)
@@ -413,7 +413,7 @@ class TestGrantUserToVirtualTable():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.grant_user_to_virtual_table(**req_copy)
+                _service.grant_user_to_virtual_table(**req_copy)
 
 
 
@@ -437,7 +437,7 @@ class TestRevokeUserFromObject():
         revoke_user_from_object()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/v2/privileges/users/PUBLIC')
+        url = self.preprocess_url(_base_url + '/v2/privileges/users/PUBLIC')
         responses.add(responses.DELETE,
                       url,
                       status=204)
@@ -448,7 +448,7 @@ class TestRevokeUserFromObject():
         table_schema = 'dv_ibmid_060000s4y5'
 
         # Invoke method
-        response = service.revoke_user_from_object(
+        response = _service.revoke_user_from_object(
             authid,
             table_name,
             table_schema,
@@ -471,7 +471,7 @@ class TestRevokeUserFromObject():
         test_revoke_user_from_object_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/v2/privileges/users/PUBLIC')
+        url = self.preprocess_url(_base_url + '/v2/privileges/users/PUBLIC')
         responses.add(responses.DELETE,
                       url,
                       status=204)
@@ -490,7 +490,7 @@ class TestRevokeUserFromObject():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.revoke_user_from_object(**req_copy)
+                _service.revoke_user_from_object(**req_copy)
 
 
 
@@ -524,7 +524,7 @@ class TestGrantRolesToVirtualizedTable():
         grant_roles_to_virtualized_table()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/v2/privileges/roles')
+        url = self.preprocess_url(_base_url + '/v2/privileges/roles')
         responses.add(responses.POST,
                       url,
                       status=204)
@@ -535,7 +535,7 @@ class TestGrantRolesToVirtualizedTable():
         role_name = 'PUBLIC'
 
         # Invoke method
-        response = service.grant_roles_to_virtualized_table(
+        response = _service.grant_roles_to_virtualized_table(
             table_name,
             table_schema,
             role_name=role_name,
@@ -558,7 +558,7 @@ class TestGrantRolesToVirtualizedTable():
         test_grant_roles_to_virtualized_table_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/v2/privileges/roles')
+        url = self.preprocess_url(_base_url + '/v2/privileges/roles')
         responses.add(responses.POST,
                       url,
                       status=204)
@@ -576,7 +576,7 @@ class TestGrantRolesToVirtualizedTable():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.grant_roles_to_virtualized_table(**req_copy)
+                _service.grant_roles_to_virtualized_table(**req_copy)
 
 
 
@@ -600,7 +600,7 @@ class TestDvaasRevokeRoleFromTable():
         dvaas_revoke_role_from_table()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/v2/privileges/roles/DV_ENGINEER')
+        url = self.preprocess_url(_base_url + '/v2/privileges/roles/DV_ENGINEER')
         responses.add(responses.DELETE,
                       url,
                       status=204)
@@ -611,7 +611,7 @@ class TestDvaasRevokeRoleFromTable():
         table_schema = 'dv_ibmid_060000s4y5'
 
         # Invoke method
-        response = service.dvaas_revoke_role_from_table(
+        response = _service.dvaas_revoke_role_from_table(
             role_name,
             table_name,
             table_schema,
@@ -634,7 +634,7 @@ class TestDvaasRevokeRoleFromTable():
         test_dvaas_revoke_role_from_table_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/v2/privileges/roles/DV_ENGINEER')
+        url = self.preprocess_url(_base_url + '/v2/privileges/roles/DV_ENGINEER')
         responses.add(responses.DELETE,
                       url,
                       status=204)
@@ -653,7 +653,7 @@ class TestDvaasRevokeRoleFromTable():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.dvaas_revoke_role_from_table(**req_copy)
+                _service.dvaas_revoke_role_from_table(**req_copy)
 
 
 
@@ -677,7 +677,7 @@ class TestListTablesForRole():
         list_tables_for_role()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/v2/privileges/tables')
+        url = self.preprocess_url(_base_url + '/v2/privileges/tables')
         mock_response = '{"objects": [{"table_name": "table_name", "table_schema": "table_schema"}]}'
         responses.add(responses.GET,
                       url,
@@ -689,7 +689,7 @@ class TestListTablesForRole():
         rolename = 'MANAGER | STEWARD | ENGINEER | USER'
 
         # Invoke method
-        response = service.list_tables_for_role(
+        response = _service.list_tables_for_role(
             rolename,
             headers={}
         )
@@ -709,7 +709,7 @@ class TestListTablesForRole():
         test_list_tables_for_role_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/v2/privileges/tables')
+        url = self.preprocess_url(_base_url + '/v2/privileges/tables')
         mock_response = '{"objects": [{"table_name": "table_name", "table_schema": "table_schema"}]}'
         responses.add(responses.GET,
                       url,
@@ -727,7 +727,7 @@ class TestListTablesForRole():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.list_tables_for_role(**req_copy)
+                _service.list_tables_for_role(**req_copy)
 
 
 
@@ -761,7 +761,7 @@ class TestTurnOnPolicyV2():
         turn_on_policy_v2()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/v2/security/policy/status')
+        url = self.preprocess_url(_base_url + '/v2/security/policy/status')
         mock_response = '{"status": "enabled"}'
         responses.add(responses.PUT,
                       url,
@@ -773,7 +773,7 @@ class TestTurnOnPolicyV2():
         status = 'enabled'
 
         # Invoke method
-        response = service.turn_on_policy_v2(
+        response = _service.turn_on_policy_v2(
             status,
             headers={}
         )
@@ -793,7 +793,7 @@ class TestTurnOnPolicyV2():
         test_turn_on_policy_v2_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/v2/security/policy/status')
+        url = self.preprocess_url(_base_url + '/v2/security/policy/status')
         mock_response = '{"status": "enabled"}'
         responses.add(responses.PUT,
                       url,
@@ -811,7 +811,7 @@ class TestTurnOnPolicyV2():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.turn_on_policy_v2(**req_copy)
+                _service.turn_on_policy_v2(**req_copy)
 
 
 
@@ -835,7 +835,7 @@ class TestCheckPolicyStatusV2():
         check_policy_status_v2()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/v2/security/policy/status')
+        url = self.preprocess_url(_base_url + '/v2/security/policy/status')
         mock_response = '{"status": "enabled"}'
         responses.add(responses.GET,
                       url,
@@ -844,7 +844,7 @@ class TestCheckPolicyStatusV2():
                       status=200)
 
         # Invoke method
-        response = service.check_policy_status_v2()
+        response = _service.check_policy_status_v2()
 
 
         # Check for correct operation
@@ -882,7 +882,7 @@ class TestDvaasVirtualizeTable():
         dvaas_virtualize_table()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/v2/virtualization/tables')
+        url = self.preprocess_url(_base_url + '/v2/virtualization/tables')
         mock_response = '{"table_name": "Tab1", "schema_name": "dv_ibmid_060000s4y5"}'
         responses.add(responses.POST,
                       url,
@@ -911,7 +911,7 @@ class TestDvaasVirtualizeTable():
         replace = False
 
         # Invoke method
-        response = service.dvaas_virtualize_table(
+        response = _service.dvaas_virtualize_table(
             source_name,
             source_table_def,
             sources,
@@ -944,7 +944,7 @@ class TestDvaasVirtualizeTable():
         test_dvaas_virtualize_table_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/v2/virtualization/tables')
+        url = self.preprocess_url(_base_url + '/v2/virtualization/tables')
         mock_response = '{"table_name": "Tab1", "schema_name": "dv_ibmid_060000s4y5"}'
         responses.add(responses.POST,
                       url,
@@ -984,7 +984,7 @@ class TestDvaasVirtualizeTable():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.dvaas_virtualize_table(**req_copy)
+                _service.dvaas_virtualize_table(**req_copy)
 
 
 
@@ -1008,7 +1008,7 @@ class TestDeleteTable():
         delete_table()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/v2/virtualization/tables/testString')
+        url = self.preprocess_url(_base_url + '/v2/virtualization/tables/testString')
         responses.add(responses.DELETE,
                       url,
                       status=204)
@@ -1018,7 +1018,7 @@ class TestDeleteTable():
         virtual_name = 'testString'
 
         # Invoke method
-        response = service.delete_table(
+        response = _service.delete_table(
             virtual_schema,
             virtual_name,
             headers={}
@@ -1039,7 +1039,7 @@ class TestDeleteTable():
         test_delete_table_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/v2/virtualization/tables/testString')
+        url = self.preprocess_url(_base_url + '/v2/virtualization/tables/testString')
         responses.add(responses.DELETE,
                       url,
                       status=204)
@@ -1056,7 +1056,7 @@ class TestDeleteTable():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.delete_table(**req_copy)
+                _service.delete_table(**req_copy)
 
 
 
@@ -1090,7 +1090,7 @@ class TestGetPrimaryCatalog():
         get_primary_catalog()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/v2/catalog/primary')
+        url = self.preprocess_url(_base_url + '/v2/catalog/primary')
         mock_response = '{"entity": {"auto_profiling": true, "bss_account_id": "999", "capacity_limit": 0, "description": "The governed catalog where data assets are synchronized with the Information assets view.", "generator": "Catalog-OMRS-Synced", "is_governed": true, "name": "Primary Catalog"}, "href": "/v2/catalogs/648fb4e0-3f6c-4ce3-afbb-317acc03faa4", "metadata": {"create_time": "2021-01-11T10:37:03Z", "creator_id": "648fb4e01000330999", "guid": "648fb4e0-3f6c-4ce3-afbb-317acc03faa4", "url": "648fb4e0/v2/catalogs/648fb4e0-3f6c-4ce3-afbb-317acc03faa4"}}'
         responses.add(responses.GET,
                       url,
@@ -1099,7 +1099,7 @@ class TestGetPrimaryCatalog():
                       status=200)
 
         # Invoke method
-        response = service.get_primary_catalog()
+        response = _service.get_primary_catalog()
 
 
         # Check for correct operation
@@ -1127,7 +1127,7 @@ class TestPostPrimaryCatalog():
         post_primary_catalog()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/v2/catalog/primary')
+        url = self.preprocess_url(_base_url + '/v2/catalog/primary')
         mock_response = '{"guid": "d77fc432-9b1a-4938-a2a5-9f37e08041f6", "name": "Default Catalog", "description": "The governed catalog where data assets are synchronized with the Information assets view."}'
         responses.add(responses.POST,
                       url,
@@ -1139,7 +1139,7 @@ class TestPostPrimaryCatalog():
         guid = 'd77fc432-9b1a-4938-a2a5-9f37e08041f6'
 
         # Invoke method
-        response = service.post_primary_catalog(
+        response = _service.post_primary_catalog(
             guid,
             headers={}
         )
@@ -1158,7 +1158,7 @@ class TestPostPrimaryCatalog():
         test_post_primary_catalog_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/v2/catalog/primary')
+        url = self.preprocess_url(_base_url + '/v2/catalog/primary')
         mock_response = '{"guid": "d77fc432-9b1a-4938-a2a5-9f37e08041f6", "name": "Default Catalog", "description": "The governed catalog where data assets are synchronized with the Information assets view."}'
         responses.add(responses.POST,
                       url,
@@ -1176,7 +1176,7 @@ class TestPostPrimaryCatalog():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.post_primary_catalog(**req_copy)
+                _service.post_primary_catalog(**req_copy)
 
 
 
@@ -1200,7 +1200,7 @@ class TestDeletePrimaryCatalog():
         delete_primary_catalog()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/v2/catalog/primary')
+        url = self.preprocess_url(_base_url + '/v2/catalog/primary')
         responses.add(responses.DELETE,
                       url,
                       status=204)
@@ -1209,7 +1209,7 @@ class TestDeletePrimaryCatalog():
         guid = 'd77fc432-9b1a-4938-a2a5-9f37e08041f6'
 
         # Invoke method
-        response = service.delete_primary_catalog(
+        response = _service.delete_primary_catalog(
             guid,
             headers={}
         )
@@ -1229,7 +1229,7 @@ class TestDeletePrimaryCatalog():
         test_delete_primary_catalog_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/v2/catalog/primary')
+        url = self.preprocess_url(_base_url + '/v2/catalog/primary')
         responses.add(responses.DELETE,
                       url,
                       status=204)
@@ -1244,7 +1244,7 @@ class TestDeletePrimaryCatalog():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.delete_primary_catalog(**req_copy)
+                _service.delete_primary_catalog(**req_copy)
 
 
 
@@ -1278,7 +1278,7 @@ class TestPublishAssets():
         publish_assets()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/v2/integration/catalog/publish')
+        url = self.preprocess_url(_base_url + '/v2/integration/catalog/publish')
         mock_response = '{"duplicate_assets": [{"schema_name": "USER999", "table_name": "customer"}], "failed_assets": [{"error_msg": "37fa4a15-1071-4a20-bc9e-0283d3dfb6e", "schema_name": "USER999", "table_name": "customer"}], "published_assets": [{"schema_name": "USER999", "table_name": "customer", "wkc_asset_id": "37fa4a15-1071-4a20-bc9e-0283d3dfb6e1"}]}'
         responses.add(responses.POST,
                       url,
@@ -1297,7 +1297,7 @@ class TestPublishAssets():
         assets = [post_primary_catalog_parameters_assets_item_model]
 
         # Invoke method
-        response = service.publish_assets(
+        response = _service.publish_assets(
             catalog_id,
             allow_duplicates,
             assets,
@@ -1320,7 +1320,7 @@ class TestPublishAssets():
         test_publish_assets_value_error()
         """
         # Set up mock
-        url = self.preprocess_url(base_url + '/v2/integration/catalog/publish')
+        url = self.preprocess_url(_base_url + '/v2/integration/catalog/publish')
         mock_response = '{"duplicate_assets": [{"schema_name": "USER999", "table_name": "customer"}], "failed_assets": [{"error_msg": "37fa4a15-1071-4a20-bc9e-0283d3dfb6e", "schema_name": "USER999", "table_name": "customer"}], "published_assets": [{"schema_name": "USER999", "table_name": "customer", "wkc_asset_id": "37fa4a15-1071-4a20-bc9e-0283d3dfb6e1"}]}'
         responses.add(responses.POST,
                       url,
@@ -1347,7 +1347,7 @@ class TestPublishAssets():
         for param in req_param_dict.keys():
             req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
             with pytest.raises(ValueError):
-                service.publish_assets(**req_copy)
+                _service.publish_assets(**req_copy)
 
 
 
@@ -1361,7 +1361,7 @@ class TestPublishAssets():
 # Start of Model Tests
 ##############################################################################
 # region
-class TestCatalogPublishResponseDuplicateAssetsItem():
+class TestModel_CatalogPublishResponseDuplicateAssetsItem():
     """
     Test Class for CatalogPublishResponseDuplicateAssetsItem
     """
@@ -1391,7 +1391,7 @@ class TestCatalogPublishResponseDuplicateAssetsItem():
         catalog_publish_response_duplicate_assets_item_model_json2 = catalog_publish_response_duplicate_assets_item_model.to_dict()
         assert catalog_publish_response_duplicate_assets_item_model_json2 == catalog_publish_response_duplicate_assets_item_model_json
 
-class TestCatalogPublishResponseFailedAssetsItem():
+class TestModel_CatalogPublishResponseFailedAssetsItem():
     """
     Test Class for CatalogPublishResponseFailedAssetsItem
     """
@@ -1422,7 +1422,7 @@ class TestCatalogPublishResponseFailedAssetsItem():
         catalog_publish_response_failed_assets_item_model_json2 = catalog_publish_response_failed_assets_item_model.to_dict()
         assert catalog_publish_response_failed_assets_item_model_json2 == catalog_publish_response_failed_assets_item_model_json
 
-class TestCatalogPublishResponsePublishedAssetsItem():
+class TestModel_CatalogPublishResponsePublishedAssetsItem():
     """
     Test Class for CatalogPublishResponsePublishedAssetsItem
     """
@@ -1453,7 +1453,7 @@ class TestCatalogPublishResponsePublishedAssetsItem():
         catalog_publish_response_published_assets_item_model_json2 = catalog_publish_response_published_assets_item_model.to_dict()
         assert catalog_publish_response_published_assets_item_model_json2 == catalog_publish_response_published_assets_item_model_json
 
-class TestCheckPolicyStatusV2Response():
+class TestModel_CheckPolicyStatusV2Response():
     """
     Test Class for CheckPolicyStatusV2Response
     """
@@ -1482,7 +1482,7 @@ class TestCheckPolicyStatusV2Response():
         check_policy_status_v2_response_model_json2 = check_policy_status_v2_response_model.to_dict()
         assert check_policy_status_v2_response_model_json2 == check_policy_status_v2_response_model_json
 
-class TestDatasourceConnectionsList():
+class TestModel_DatasourceConnectionsList():
     """
     Test Class for DatasourceConnectionsList
     """
@@ -1536,7 +1536,7 @@ class TestDatasourceConnectionsList():
         datasource_connections_list_model_json2 = datasource_connections_list_model.to_dict()
         assert datasource_connections_list_model_json2 == datasource_connections_list_model_json
 
-class TestDatasourceConnectionsListDatasourceConnectionsItem():
+class TestModel_DatasourceConnectionsListDatasourceConnectionsItem():
     """
     Test Class for DatasourceConnectionsListDatasourceConnectionsItem
     """
@@ -1587,7 +1587,7 @@ class TestDatasourceConnectionsListDatasourceConnectionsItem():
         datasource_connections_list_datasource_connections_item_model_json2 = datasource_connections_list_datasource_connections_item_model.to_dict()
         assert datasource_connections_list_datasource_connections_item_model_json2 == datasource_connections_list_datasource_connections_item_model_json
 
-class TestDatasourceConnectionsListDatasourceConnectionsItemDataSourcesItem():
+class TestModel_DatasourceConnectionsListDatasourceConnectionsItemDataSourcesItem():
     """
     Test Class for DatasourceConnectionsListDatasourceConnectionsItemDataSourcesItem
     """
@@ -1625,7 +1625,7 @@ class TestDatasourceConnectionsListDatasourceConnectionsItemDataSourcesItem():
         datasource_connections_list_datasource_connections_item_data_sources_item_model_json2 = datasource_connections_list_datasource_connections_item_data_sources_item_model.to_dict()
         assert datasource_connections_list_datasource_connections_item_data_sources_item_model_json2 == datasource_connections_list_datasource_connections_item_data_sources_item_model_json
 
-class TestPostDatasourceConnection():
+class TestModel_PostDatasourceConnection():
     """
     Test Class for PostDatasourceConnection
     """
@@ -1656,7 +1656,7 @@ class TestPostDatasourceConnection():
         post_datasource_connection_model_json2 = post_datasource_connection_model.to_dict()
         assert post_datasource_connection_model_json2 == post_datasource_connection_model_json
 
-class TestPostDatasourceConnectionParametersProperties():
+class TestModel_PostDatasourceConnectionParametersProperties():
     """
     Test Class for PostDatasourceConnectionParametersProperties
     """
@@ -1714,7 +1714,7 @@ class TestPostDatasourceConnectionParametersProperties():
         post_datasource_connection_parameters_properties_model_json2 = post_datasource_connection_parameters_properties_model.to_dict()
         assert post_datasource_connection_parameters_properties_model_json2 == post_datasource_connection_parameters_properties_model_json
 
-class TestPostPrimaryCatalogParametersAssetsItem():
+class TestModel_PostPrimaryCatalogParametersAssetsItem():
     """
     Test Class for PostPrimaryCatalogParametersAssetsItem
     """
@@ -1744,7 +1744,7 @@ class TestPostPrimaryCatalogParametersAssetsItem():
         post_primary_catalog_parameters_assets_item_model_json2 = post_primary_catalog_parameters_assets_item_model.to_dict()
         assert post_primary_catalog_parameters_assets_item_model_json2 == post_primary_catalog_parameters_assets_item_model_json
 
-class TestPrimaryCatalogInfoEntity():
+class TestModel_PrimaryCatalogInfoEntity():
     """
     Test Class for PrimaryCatalogInfoEntity
     """
@@ -1779,7 +1779,7 @@ class TestPrimaryCatalogInfoEntity():
         primary_catalog_info_entity_model_json2 = primary_catalog_info_entity_model.to_dict()
         assert primary_catalog_info_entity_model_json2 == primary_catalog_info_entity_model_json
 
-class TestPrimaryCatalogInfoMetadata():
+class TestModel_PrimaryCatalogInfoMetadata():
     """
     Test Class for PrimaryCatalogInfoMetadata
     """
@@ -1811,7 +1811,7 @@ class TestPrimaryCatalogInfoMetadata():
         primary_catalog_info_metadata_model_json2 = primary_catalog_info_metadata_model.to_dict()
         assert primary_catalog_info_metadata_model_json2 == primary_catalog_info_metadata_model_json
 
-class TestTablesForRoleResponse():
+class TestModel_TablesForRoleResponse():
     """
     Test Class for TablesForRoleResponse
     """
@@ -1846,7 +1846,7 @@ class TestTablesForRoleResponse():
         tables_for_role_response_model_json2 = tables_for_role_response_model.to_dict()
         assert tables_for_role_response_model_json2 == tables_for_role_response_model_json
 
-class TestTablesForRoleResponseObjectsItem():
+class TestModel_TablesForRoleResponseObjectsItem():
     """
     Test Class for TablesForRoleResponseObjectsItem
     """
@@ -1876,7 +1876,7 @@ class TestTablesForRoleResponseObjectsItem():
         tables_for_role_response_objects_item_model_json2 = tables_for_role_response_objects_item_model.to_dict()
         assert tables_for_role_response_objects_item_model_json2 == tables_for_role_response_objects_item_model_json
 
-class TestTurnOnPolicyV2Response():
+class TestModel_TurnOnPolicyV2Response():
     """
     Test Class for TurnOnPolicyV2Response
     """
@@ -1905,7 +1905,7 @@ class TestTurnOnPolicyV2Response():
         turn_on_policy_v2_response_model_json2 = turn_on_policy_v2_response_model.to_dict()
         assert turn_on_policy_v2_response_model_json2 == turn_on_policy_v2_response_model_json
 
-class TestVirtualizeTableParameterSourceTableDefItem():
+class TestModel_VirtualizeTableParameterSourceTableDefItem():
     """
     Test Class for VirtualizeTableParameterSourceTableDefItem
     """
@@ -1935,7 +1935,7 @@ class TestVirtualizeTableParameterSourceTableDefItem():
         virtualize_table_parameter_source_table_def_item_model_json2 = virtualize_table_parameter_source_table_def_item_model.to_dict()
         assert virtualize_table_parameter_source_table_def_item_model_json2 == virtualize_table_parameter_source_table_def_item_model_json
 
-class TestVirtualizeTableParameterVirtualTableDefItem():
+class TestModel_VirtualizeTableParameterVirtualTableDefItem():
     """
     Test Class for VirtualizeTableParameterVirtualTableDefItem
     """
@@ -1965,7 +1965,7 @@ class TestVirtualizeTableParameterVirtualTableDefItem():
         virtualize_table_parameter_virtual_table_def_item_model_json2 = virtualize_table_parameter_virtual_table_def_item_model.to_dict()
         assert virtualize_table_parameter_virtual_table_def_item_model_json2 == virtualize_table_parameter_virtual_table_def_item_model_json
 
-class TestVirtualizeTableResponse():
+class TestModel_VirtualizeTableResponse():
     """
     Test Class for VirtualizeTableResponse
     """
@@ -1995,7 +1995,7 @@ class TestVirtualizeTableResponse():
         virtualize_table_response_model_json2 = virtualize_table_response_model.to_dict()
         assert virtualize_table_response_model_json2 == virtualize_table_response_model_json
 
-class TestCatalogPublishResponse():
+class TestModel_CatalogPublishResponse():
     """
     Test Class for CatalogPublishResponse
     """
@@ -2042,7 +2042,7 @@ class TestCatalogPublishResponse():
         catalog_publish_response_model_json2 = catalog_publish_response_model.to_dict()
         assert catalog_publish_response_model_json2 == catalog_publish_response_model_json
 
-class TestPostPrimaryCatalog():
+class TestModel_PostPrimaryCatalog():
     """
     Test Class for PostPrimaryCatalog
     """
@@ -2073,7 +2073,7 @@ class TestPostPrimaryCatalog():
         post_primary_catalog_model_json2 = post_primary_catalog_model.to_dict()
         assert post_primary_catalog_model_json2 == post_primary_catalog_model_json
 
-class TestPrimaryCatalogInfo():
+class TestModel_PrimaryCatalogInfo():
     """
     Test Class for PrimaryCatalogInfo
     """
