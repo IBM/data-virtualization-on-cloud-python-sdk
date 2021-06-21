@@ -1,6 +1,6 @@
 # IBM Data Virtualization on Cloud Python SDK
 A Python client library to interact with
-the [IBM Cloud® Data Virtualization on Cloud APIs](https://cloud.ibm.com/apidocs/data-virtualization-on-cloud).
+the [IBM Data Virtualization on Cloud APIs](https://cloud.ibm.com/apidocs/data-virtualization-on-cloud).
 
 <details>
 <summary>Table of Contents</summary>
