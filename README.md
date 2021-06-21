@@ -70,7 +70,7 @@ authenticators from `ibm_cloud_sdk_core.authenticators`.
 ```python
 from ibm_cloud_sdk_core.authenticators.iam_authenticator import IAMAuthenticator
 
-dataVVirtualization = dataVVirtualizationV1(
+dataVirtualization = dataVirtualizationV1(
     authenticator=IAMAuthenticator(apikey='<IBM_CLOUD_API_KEY>')
 )
 ```
