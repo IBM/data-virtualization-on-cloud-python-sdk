@@ -28,7 +28,7 @@ The IBM Data Virtualization on Cloud Python SDK allows developers to programmati
 
 Service Name | Package name 
 --- | --- 
-[Data Virtualization on Cloud](https://cloud.ibm.com/apidocs/data-virtualization-on-cloud-python-sdk) | datavirtualizationv1
+[Data Virtualization on Cloud](https://cloud.ibm.com/apidocs/data-virtualization-on-cloud) | datavirtualizationv1
 
 ## Prerequisites
 
