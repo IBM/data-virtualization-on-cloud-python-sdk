@@ -29,26 +29,26 @@ script: tox
 
 
 # To enable semantic-release, uncomment these sections.
-# before_deploy:
-# - pip install bump2version
-# - nvm install 12
-# - npm install @semantic-release/changelog
-# - npm install @semantic-release/exec
-# - npm install @semantic-release/git
-# - npm install @semantic-release/github
-# 
-# deploy:
-# - provider: script
-#   script: npx semantic-release
-#   skip_cleanup: true
-#   on:
-#     python: '3.6'
-#     branch: main
-# - provider: pypi
-#   user: __token__
-#   password: $PYPI_TOKEN
-#   repository: https://upload.pypi.org/legacy
-#   skip_cleanup: true
-#   on:
-#     python: '3.6'
-#     tags: true
+ before_deploy:
+ - pip install bump2version
+ - nvm install 12
+ - npm install @semantic-release/changelog
+ - npm install @semantic-release/exec
+ - npm install @semantic-release/git
+ - npm install @semantic-release/github
+ 
+ deploy:
+ - provider: script
+   script: npx semantic-release
+   skip_cleanup: true
+   on:
+     python: '3.6'
+     branch: main
+ - provider: pypi
+   user: __token__
+   password: $PYPI_TOKEN
+   repository: https://upload.pypi.org/legacy
+   skip_cleanup: true
+   on:
+     python: '3.6'
+     tags: true

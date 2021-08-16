@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""The IBM Data Virtualization on Cloud Python SDK"""
+"""Python client library for the The IBM Data Virtualization on Cloud Python SDK"""
 
 from ibm_cloud_sdk_core import IAMTokenManager, DetailedResponse, BaseService, ApiException
 
