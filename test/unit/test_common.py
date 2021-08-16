@@ -19,7 +19,7 @@ Test methods in the common module
 """
 
 import unittest
-from ibm_data_virtualization_sdk import common
+from ibm_data_virtualization_on_cloud import common
 
 class TestCommon(unittest.TestCase):
     """
@@ -30,10 +30,10 @@ class TestCommon(unittest.TestCase):
         """
         Test the get_sdk_headers method
         """
-        headers = common.get_sdk_headers(service_name='example_service', service_version='V1', operation_id='operation1')
+        headers = common.get_sdk_headers(service_name='ibm_data_virtualization_on_cloud', service_version='V1', operation_id='operation1')
         self.assertIsNotNone(headers)
         self.assertIsNotNone(headers.get('User-Agent'))
-        self.assertIn('data-virtualization-on-cloud-python-sdk.git', headers.get('User-Agent'))
+        self.assertIn('data-virtualization-on-cloud-python-sdk', headers.get('User-Agent'))
 
     def test_get_system_info(self):
         """

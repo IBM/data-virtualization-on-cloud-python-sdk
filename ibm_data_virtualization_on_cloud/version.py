@@ -15,6 +15,6 @@
 # limitations under the License.
 
 """
-Version of ibm_data_virtualization_sdk
+Version of ibm_data_virtualization_on_cloud
 """
 __version__ = '0.0.1'

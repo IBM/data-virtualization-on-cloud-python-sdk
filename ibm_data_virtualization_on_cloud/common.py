@@ -19,10 +19,10 @@ This module provides common methods for use across all service modules.
 """
 
 import platform
-from ibm_data_virtualization_sdk.version import __version__
+from .version import __version__
 
 HEADER_NAME_USER_AGENT = 'User-Agent'
-SDK_NAME = 'data-virtualization-on-cloud-python-sdk.git'
+SDK_NAME = 'data-virtualization-on-cloud-python-sdk'
 
 def get_system_info():
     """

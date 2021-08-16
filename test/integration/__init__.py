@@ -1,5 +1,6 @@
 # coding: utf-8
 
-"""Integration tests"""
+"""Integration Tests"""
 
-# This file is only here to get pylint to check the files in this directory
+# this file is present so that pylint will lint-check the files in this directory
+

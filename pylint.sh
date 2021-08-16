@@ -1,3 +1,3 @@
 #!/bin/bash
 
-python -m pylint ibm_data_virtualization_sdk test --exit-zero
+python3 -m pylint ibm_data_virtualization_on_cloud test --exit-zero

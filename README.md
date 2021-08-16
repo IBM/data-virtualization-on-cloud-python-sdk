@@ -2,7 +2,7 @@
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 # The IBM Data Virtualization on Cloud Python SDK Version 0.0.1
 
-Python client library to interact with various [IBM Cloud Data Virtualization APIs](https://cloud.ibm.com/apidocs/data-virtualization-on-cloud).
+Python client library to interact with various [IBM Data Virtualization on Cloud APIs](https://cloud.ibm.com/apidocs/data-virtualization-on-cloud).
 
 Disclaimer: this SDK is being released initially as a **pre-release** version.
 Changes might occur which impact applications that use this SDK.
@@ -35,12 +35,12 @@ Changes might occur which impact applications that use this SDK.
 
 ## Overview
 
-The IBM Cloud Data Virtualization Python SDK allows developers to programmatically interact with the following
+The IBM Data Virtualization on Cloud Python SDK allows developers to programmatically interact with the following
 IBM Cloud services:
 
 Service Name | Package name 
 --- | --- 
-[Data Virtualization on Cloud](https://cloud.ibm.com/apidocs/data-virtualization-on-cloud) | datavirtualizationv1
+[Data Virtualization on Cloud](https://cloud.ibm.com/apidocs/data-virtualization-on-cloud) | ibm_data_virtualization_on_cloud
 <!-- [Example Service](https://cloud.ibm.com/apidocs/example-service) | example_service_v1 | ExampleServiceV1 -->
 
 ## Prerequisites
@@ -56,7 +56,7 @@ Service Name | Package name
 To install, use `pip`:
 
 ```bash
-pip install --upgrade ibm-data-virtualization-sdk
+pip install --upgrade ibm-data-virtualization-on-cloud
 ```
 
 ## Using the SDK
