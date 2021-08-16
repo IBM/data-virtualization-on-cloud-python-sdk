@@ -19,7 +19,7 @@ import os
 import sys
 import pkg_resources
 
-__version__ = '0.0.1'
+__version__ = '0.0.2'
 PACKAGE_NAME = 'ibm_data_virtualization_on_cloud'
 PACKAGE_DESC = 'The IBM Data Virtualization on Cloud Python SDK'
 
