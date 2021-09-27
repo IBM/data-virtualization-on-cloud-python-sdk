@@ -17,4 +17,4 @@
 """
 Version of ibm_data_virtualization_on_cloud
 """
-__version__ = '0.0.2'
+__version__ = '0.0.3'
