@@ -1,3 +1,10 @@
+## [0.0.3](https://github.com/IBM/data-virtualization-on-cloud-python-sdk/compare/v0.0.2...v0.0.3) (2021-09-27)
+
+
+### Bug Fixes
+
+* change node version from 12 to 14.17 ([#15](https://github.com/IBM/data-virtualization-on-cloud-python-sdk/issues/15)) ([17ae59d](https://github.com/IBM/data-virtualization-on-cloud-python-sdk/commit/17ae59d2df2e3114679f6f617bdde0cfc6609bb9))
+
 ## [0.0.2](https://github.com/IBM/data-virtualization-on-cloud-python-sdk/compare/v0.0.1...v0.0.2) (2021-08-16)
 
 
