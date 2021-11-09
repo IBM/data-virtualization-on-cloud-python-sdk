@@ -26,8 +26,7 @@ import re
 import requests
 import responses
 import urllib
-from ibm_cloud.data_virtualization_v1 import *
-
+from ibm_data_virtualization_on_cloud.data_virtualization_v1 import *
 
 _service = DataVirtualizationV1(
     authenticator=NoAuthAuthenticator()

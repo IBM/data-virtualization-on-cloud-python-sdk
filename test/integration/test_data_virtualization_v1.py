@@ -20,7 +20,7 @@ Integration Tests for DataVirtualizationV1
 import os
 import pytest
 from ibm_cloud_sdk_core import *
-from ibm_cloud.data_virtualization_v1 import *
+from ibm_data_virtualization_on_cloud.data_virtualization_v1 import *
 
 # Config file name
 config_file = 'data_virtualization_v1.env'
