@@ -36,12 +36,14 @@ class TestDataVirtualizationV1():
             os.environ['IBM_CREDENTIALS_FILE'] = config_file
 
             cls.data_virtualization_service = DataVirtualizationV1.new_instance(
-                )
+            )
             assert cls.data_virtualization_service is not None
 
             cls.config = read_external_sources(
                 DataVirtualizationV1.DEFAULT_SERVICE_NAME)
             assert cls.config is not None
+
+            cls.data_virtualization_service.enable_retries()
 
         print('Setup complete.')
 
@@ -57,6 +59,15 @@ class TestDataVirtualizationV1():
         assert list_datasource_connections_response.get_status_code() == 200
         datasource_connections_list = list_datasource_connections_response.get_result()
         assert datasource_connections_list is not None
+
+        #
+        # The following status codes aren't covered by tests.
+        # Please provide integration tests for these too.
+        #
+        # 400
+        # 401
+        # 500
+        #
 
     @needscredentials
     def test_add_datasource_connection(self):
@@ -107,6 +118,36 @@ class TestDataVirtualizationV1():
         post_datasource_connection = add_datasource_connection_response.get_result()
         assert post_datasource_connection is not None
 
+        #
+        # The following status codes aren't covered by tests.
+        # Please provide integration tests for these too.
+        #
+        # 400
+        # 401
+        # 409
+        # 500
+        #
+
+    @needscredentials
+    def test_get_object_store_connections_v2(self):
+
+        get_object_store_connections_v2_response = self.data_virtualization_service.get_object_store_connections_v2(
+            jwt_auth_user_payload='testString'
+        )
+
+        assert get_object_store_connections_v2_response.get_status_code() == 200
+        obj_store_connection_response_v2 = get_object_store_connections_v2_response.get_result()
+        assert obj_store_connection_response_v2 is not None
+
+        #
+        # The following status codes aren't covered by tests.
+        # Please provide integration tests for these too.
+        #
+        # 400
+        # 401
+        # 500
+        #
+
     @needscredentials
     def test_grant_user_to_virtual_table(self):
 
@@ -117,6 +158,15 @@ class TestDataVirtualizationV1():
         )
 
         assert grant_user_to_virtual_table_response.get_status_code() == 204
+
+        #
+        # The following status codes aren't covered by tests.
+        # Please provide integration tests for these too.
+        #
+        # 400
+        # 401
+        # 500
+        #
 
     @needscredentials
     def test_grant_roles_to_virtualized_table(self):
@@ -129,6 +179,15 @@ class TestDataVirtualizationV1():
 
         assert grant_roles_to_virtualized_table_response.get_status_code() == 204
 
+        #
+        # The following status codes aren't covered by tests.
+        # Please provide integration tests for these too.
+        #
+        # 400
+        # 401
+        # 500
+        #
+
     @needscredentials
     def test_list_tables_for_role(self):
 
@@ -139,6 +198,15 @@ class TestDataVirtualizationV1():
         assert list_tables_for_role_response.get_status_code() == 200
         tables_for_role_response = list_tables_for_role_response.get_result()
         assert tables_for_role_response is not None
+
+        #
+        # The following status codes aren't covered by tests.
+        # Please provide integration tests for these too.
+        #
+        # 400
+        # 401
+        # 500
+        #
 
     @needscredentials
     def test_turn_on_policy_v2(self):
@@ -151,6 +219,14 @@ class TestDataVirtualizationV1():
         turn_on_policy_v2_response = turn_on_policy_v2_response.get_result()
         assert turn_on_policy_v2_response is not None
 
+        #
+        # The following status codes aren't covered by tests.
+        # Please provide integration tests for these too.
+        #
+        # 401
+        # 500
+        #
+
     @needscredentials
     def test_check_policy_status_v2(self):
 
@@ -159,6 +235,14 @@ class TestDataVirtualizationV1():
         assert check_policy_status_v2_response.get_status_code() == 200
         check_policy_status_v2_response = check_policy_status_v2_response.get_result()
         assert check_policy_status_v2_response is not None
+
+        #
+        # The following status codes aren't covered by tests.
+        # Please provide integration tests for these too.
+        #
+        # 401
+        # 500
+        #
 
     @needscredentials
     def test_dvaas_virtualize_table(self):
@@ -190,6 +274,47 @@ class TestDataVirtualizationV1():
         virtualize_table_response = dvaas_virtualize_table_response.get_result()
         assert virtualize_table_response is not None
 
+        #
+        # The following status codes aren't covered by tests.
+        # Please provide integration tests for these too.
+        #
+        # 400
+        # 401
+        # 500
+        #
+
+    @needscredentials
+    def test_virtualize_cos_v2(self):
+
+        # Construct a dict representation of a VirtualizeCosV2RequestVirtualTableDefItem model
+        virtualize_cos_v2_request_virtual_table_def_item_model = {
+            'column_name': 'Column_1',
+            'column_type': 'INTEGER',
+        }
+
+        virtualize_cos_v2_response = self.data_virtualization_service.virtualize_cos_v2(
+            url='s3a://testBucket/home/data.csv',
+            virtual_name='testString',
+            virtual_schema='testString',
+            virtual_table_def=[virtualize_cos_v2_request_virtual_table_def_item_model],
+            is_replace=False,
+            options='INCPARTS=true',
+            jwt_auth_user_payload='testString'
+        )
+
+        assert virtualize_cos_v2_response.get_status_code() == 200
+        success_response = virtualize_cos_v2_response.get_result()
+        assert success_response is not None
+
+        #
+        # The following status codes aren't covered by tests.
+        # Please provide integration tests for these too.
+        #
+        # 400
+        # 401
+        # 500
+        #
+
     @needscredentials
     def test_get_primary_catalog(self):
 
@@ -198,6 +323,15 @@ class TestDataVirtualizationV1():
         assert get_primary_catalog_response.get_status_code() == 200
         primary_catalog_info = get_primary_catalog_response.get_result()
         assert primary_catalog_info is not None
+
+        #
+        # The following status codes aren't covered by tests.
+        # Please provide integration tests for these too.
+        #
+        # 400
+        # 401
+        # 500
+        #
 
     @needscredentials
     def test_post_primary_catalog(self):
@@ -209,6 +343,15 @@ class TestDataVirtualizationV1():
         assert post_primary_catalog_response.get_status_code() == 201
         post_primary_catalog = post_primary_catalog_response.get_result()
         assert post_primary_catalog is not None
+
+        #
+        # The following status codes aren't covered by tests.
+        # Please provide integration tests for these too.
+        #
+        # 400
+        # 401
+        # 500
+        #
 
     @needscredentials
     def test_publish_assets(self):
@@ -229,6 +372,71 @@ class TestDataVirtualizationV1():
         catalog_publish_response = publish_assets_response.get_result()
         assert catalog_publish_response is not None
 
+        #
+        # The following status codes aren't covered by tests.
+        # Please provide integration tests for these too.
+        #
+        # 400
+        # 401
+        # 500
+        #
+
+    @needscredentials
+    def test_get_caches_list(self):
+
+        get_caches_list_response = self.data_virtualization_service.get_caches_list()
+
+        assert get_caches_list_response.get_status_code() == 200
+        cache_list_response = get_caches_list_response.get_result()
+        assert cache_list_response is not None
+
+        #
+        # The following status codes aren't covered by tests.
+        # Please provide integration tests for these too.
+        #
+        # 400
+        # 401
+        # 500
+        #
+
+    @needscredentials
+    def test_get_cache(self):
+
+        get_cache_response = self.data_virtualization_service.get_cache(
+            id='DV20210810191252390327'
+        )
+
+        assert get_cache_response.get_status_code() == 200
+        cache_response = get_cache_response.get_result()
+        assert cache_response is not None
+
+        #
+        # The following status codes aren't covered by tests.
+        # Please provide integration tests for these too.
+        #
+        # 400
+        # 401
+        # 500
+        #
+
+    @needscredentials
+    def test_get_cache_storage_detail(self):
+
+        get_cache_storage_detail_response = self.data_virtualization_service.get_cache_storage_detail()
+
+        assert get_cache_storage_detail_response.get_status_code() == 200
+        storage_details = get_cache_storage_detail_response.get_result()
+        assert storage_details is not None
+
+        #
+        # The following status codes aren't covered by tests.
+        # Please provide integration tests for these too.
+        #
+        # 400
+        # 401
+        # 500
+        #
+
     @needscredentials
     def test_revoke_user_from_object(self):
 
@@ -239,6 +447,15 @@ class TestDataVirtualizationV1():
         )
 
         assert revoke_user_from_object_response.get_status_code() == 204
+
+        #
+        # The following status codes aren't covered by tests.
+        # Please provide integration tests for these too.
+        #
+        # 400
+        # 401
+        # 500
+        #
 
     @needscredentials
     def test_dvaas_revoke_role_from_table(self):
@@ -251,6 +468,15 @@ class TestDataVirtualizationV1():
 
         assert dvaas_revoke_role_from_table_response.get_status_code() == 204
 
+        #
+        # The following status codes aren't covered by tests.
+        # Please provide integration tests for these too.
+        #
+        # 400
+        # 401
+        # 500
+        #
+
     @needscredentials
     def test_delete_table(self):
 
@@ -261,6 +487,14 @@ class TestDataVirtualizationV1():
 
         assert delete_table_response.get_status_code() == 204
 
+        #
+        # The following status codes aren't covered by tests.
+        # Please provide integration tests for these too.
+        #
+        # 400
+        # 500
+        #
+
     @needscredentials
     def test_delete_primary_catalog(self):
 
@@ -269,6 +503,15 @@ class TestDataVirtualizationV1():
         )
 
         assert delete_primary_catalog_response.get_status_code() == 204
+
+        #
+        # The following status codes aren't covered by tests.
+        # Please provide integration tests for these too.
+        #
+        # 400
+        # 401
+        # 500
+        #
 
     @needscredentials
     def test_delete_datasource_connection(self):
@@ -279,4 +522,13 @@ class TestDataVirtualizationV1():
         )
 
         assert delete_datasource_connection_response.get_status_code() == 204
+
+        #
+        # The following status codes aren't covered by tests.
+        # Please provide integration tests for these too.
+        #
+        # 400
+        # 401
+        # 500
+        #
 

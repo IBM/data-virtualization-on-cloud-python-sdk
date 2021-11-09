@@ -20,6 +20,7 @@ Unit Tests for DataVirtualizationV1
 from ibm_cloud_sdk_core.authenticators.no_auth_authenticator import NoAuthAuthenticator
 import inspect
 import json
+import os
 import pytest
 import re
 import requests
@@ -27,10 +28,9 @@ import responses
 import urllib
 from ibm_data_virtualization_on_cloud.data_virtualization_v1 import *
 
-
 _service = DataVirtualizationV1(
     authenticator=NoAuthAuthenticator()
-    )
+)
 
 _base_url = 'https://fake'
 _service.set_service_url(_base_url)
@@ -39,6 +39,32 @@ _service.set_service_url(_base_url)
 # Start of Service: DataSources
 ##############################################################################
 # region
+
+class TestNewInstance():
+    """
+    Test Class for new_instance
+    """
+
+    def test_new_instance(self):
+        """
+        new_instance()
+        """
+        os.environ['TEST_SERVICE_AUTH_TYPE'] = 'noAuth'
+
+        service = DataVirtualizationV1.new_instance(
+            service_name='TEST_SERVICE',
+        )
+
+        assert service is not None
+        assert isinstance(service, DataVirtualizationV1)
+
+    def test_new_instance_without_authenticator(self):
+        """
+        new_instance_without_authenticator()
+        """
+        with pytest.raises(ValueError, match='authenticator must be provided'):
+            service = DataVirtualizationV1.new_instance(
+            )
 
 class TestListDatasourceConnections():
     """
@@ -49,6 +75,8 @@ class TestListDatasourceConnections():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -76,6 +104,14 @@ class TestListDatasourceConnections():
         assert len(responses.calls) == 1
         assert response.status_code == 200
 
+    def test_list_datasource_connections_all_params_with_retries(self):
+        # Enable retries and run test_list_datasource_connections_all_params.
+        _service.enable_retries()
+        self.test_list_datasource_connections_all_params()
+
+        # Disable retries and run test_list_datasource_connections_all_params.
+        _service.disable_retries()
+        self.test_list_datasource_connections_all_params()
 
 class TestAddDatasourceConnection():
     """
@@ -86,6 +122,8 @@ class TestAddDatasourceConnection():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -166,6 +204,14 @@ class TestAddDatasourceConnection():
         assert req_body['properties'] == post_datasource_connection_parameters_properties_model
         assert req_body['asset_category'] == 'USER'
 
+    def test_add_datasource_connection_all_params_with_retries(self):
+        # Enable retries and run test_add_datasource_connection_all_params.
+        _service.enable_retries()
+        self.test_add_datasource_connection_all_params()
+
+        # Disable retries and run test_add_datasource_connection_all_params.
+        _service.disable_retries()
+        self.test_add_datasource_connection_all_params()
 
     @responses.activate
     def test_add_datasource_connection_value_error(self):
@@ -234,6 +280,14 @@ class TestAddDatasourceConnection():
                 _service.add_datasource_connection(**req_copy)
 
 
+    def test_add_datasource_connection_value_error_with_retries(self):
+        # Enable retries and run test_add_datasource_connection_value_error.
+        _service.enable_retries()
+        self.test_add_datasource_connection_value_error()
+
+        # Disable retries and run test_add_datasource_connection_value_error.
+        _service.disable_retries()
+        self.test_add_datasource_connection_value_error()
 
 class TestDeleteDatasourceConnection():
     """
@@ -244,6 +298,8 @@ class TestDeleteDatasourceConnection():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -279,6 +335,14 @@ class TestDeleteDatasourceConnection():
         query_string = urllib.parse.unquote_plus(query_string)
         assert 'cid={}'.format(cid) in query_string
 
+    def test_delete_datasource_connection_all_params_with_retries(self):
+        # Enable retries and run test_delete_datasource_connection_all_params.
+        _service.enable_retries()
+        self.test_delete_datasource_connection_all_params()
+
+        # Disable retries and run test_delete_datasource_connection_all_params.
+        _service.disable_retries()
+        self.test_delete_datasource_connection_all_params()
 
     @responses.activate
     def test_delete_datasource_connection_required_params(self):
@@ -304,6 +368,14 @@ class TestDeleteDatasourceConnection():
         assert len(responses.calls) == 1
         assert response.status_code == 204
 
+    def test_delete_datasource_connection_required_params_with_retries(self):
+        # Enable retries and run test_delete_datasource_connection_required_params.
+        _service.enable_retries()
+        self.test_delete_datasource_connection_required_params()
+
+        # Disable retries and run test_delete_datasource_connection_required_params.
+        _service.disable_retries()
+        self.test_delete_datasource_connection_required_params()
 
     @responses.activate
     def test_delete_datasource_connection_value_error(self):
@@ -329,6 +401,97 @@ class TestDeleteDatasourceConnection():
                 _service.delete_datasource_connection(**req_copy)
 
 
+    def test_delete_datasource_connection_value_error_with_retries(self):
+        # Enable retries and run test_delete_datasource_connection_value_error.
+        _service.enable_retries()
+        self.test_delete_datasource_connection_value_error()
+
+        # Disable retries and run test_delete_datasource_connection_value_error.
+        _service.disable_retries()
+        self.test_delete_datasource_connection_value_error()
+
+class TestGetObjectStoreConnectionsV2():
+    """
+    Test Class for get_object_store_connections_v2
+    """
+
+    def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
+        if re.fullmatch('.*/+', request_url) is None:
+            return request_url
+        else:
+            return re.compile(request_url.rstrip('/') + '/+')
+
+    @responses.activate
+    def test_get_object_store_connections_v2_all_params(self):
+        """
+        get_object_store_connections_v2()
+        """
+        # Set up mock
+        url = self.preprocess_url(_base_url + '/v2/datasource/objectstore_connections')
+        mock_response = '{"cos_connections": [{"bucket_name": "newbigsqlbucket", "ccid": "c28e0248-82ad-4aca-a658-90a626769fba", "cid": "CEPH10000", "endpoint": "http://jobs-m-2.fyre.ibm.com", "removed": false, "service_type": "CEPH", "status": "VALID"}]}'
+        responses.add(responses.GET,
+                      url,
+                      body=mock_response,
+                      content_type='application/json',
+                      status=200)
+
+        # Set up parameter values
+        jwt_auth_user_payload = 'testString'
+
+        # Invoke method
+        response = _service.get_object_store_connections_v2(
+            jwt_auth_user_payload=jwt_auth_user_payload,
+            headers={}
+        )
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+
+    def test_get_object_store_connections_v2_all_params_with_retries(self):
+        # Enable retries and run test_get_object_store_connections_v2_all_params.
+        _service.enable_retries()
+        self.test_get_object_store_connections_v2_all_params()
+
+        # Disable retries and run test_get_object_store_connections_v2_all_params.
+        _service.disable_retries()
+        self.test_get_object_store_connections_v2_all_params()
+
+    @responses.activate
+    def test_get_object_store_connections_v2_required_params(self):
+        """
+        test_get_object_store_connections_v2_required_params()
+        """
+        # Set up mock
+        url = self.preprocess_url(_base_url + '/v2/datasource/objectstore_connections')
+        mock_response = '{"cos_connections": [{"bucket_name": "newbigsqlbucket", "ccid": "c28e0248-82ad-4aca-a658-90a626769fba", "cid": "CEPH10000", "endpoint": "http://jobs-m-2.fyre.ibm.com", "removed": false, "service_type": "CEPH", "status": "VALID"}]}'
+        responses.add(responses.GET,
+                      url,
+                      body=mock_response,
+                      content_type='application/json',
+                      status=200)
+
+        # Invoke method
+        response = _service.get_object_store_connections_v2()
+
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+
+    def test_get_object_store_connections_v2_required_params_with_retries(self):
+        # Enable retries and run test_get_object_store_connections_v2_required_params.
+        _service.enable_retries()
+        self.test_get_object_store_connections_v2_required_params()
+
+        # Disable retries and run test_get_object_store_connections_v2_required_params.
+        _service.disable_retries()
+        self.test_get_object_store_connections_v2_required_params()
 
 # endregion
 ##############################################################################
@@ -340,6 +503,32 @@ class TestDeleteDatasourceConnection():
 ##############################################################################
 # region
 
+class TestNewInstance():
+    """
+    Test Class for new_instance
+    """
+
+    def test_new_instance(self):
+        """
+        new_instance()
+        """
+        os.environ['TEST_SERVICE_AUTH_TYPE'] = 'noAuth'
+
+        service = DataVirtualizationV1.new_instance(
+            service_name='TEST_SERVICE',
+        )
+
+        assert service is not None
+        assert isinstance(service, DataVirtualizationV1)
+
+    def test_new_instance_without_authenticator(self):
+        """
+        new_instance_without_authenticator()
+        """
+        with pytest.raises(ValueError, match='authenticator must be provided'):
+            service = DataVirtualizationV1.new_instance(
+            )
+
 class TestGrantUserToVirtualTable():
     """
     Test Class for grant_user_to_virtual_table
@@ -349,6 +538,8 @@ class TestGrantUserToVirtualTable():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -387,6 +578,14 @@ class TestGrantUserToVirtualTable():
         assert req_body['table_schema'] == 'dv_ibmid_060000s4y5'
         assert req_body['authid'] == 'PUBLIC'
 
+    def test_grant_user_to_virtual_table_all_params_with_retries(self):
+        # Enable retries and run test_grant_user_to_virtual_table_all_params.
+        _service.enable_retries()
+        self.test_grant_user_to_virtual_table_all_params()
+
+        # Disable retries and run test_grant_user_to_virtual_table_all_params.
+        _service.disable_retries()
+        self.test_grant_user_to_virtual_table_all_params()
 
     @responses.activate
     def test_grant_user_to_virtual_table_value_error(self):
@@ -416,6 +615,14 @@ class TestGrantUserToVirtualTable():
                 _service.grant_user_to_virtual_table(**req_copy)
 
 
+    def test_grant_user_to_virtual_table_value_error_with_retries(self):
+        # Enable retries and run test_grant_user_to_virtual_table_value_error.
+        _service.enable_retries()
+        self.test_grant_user_to_virtual_table_value_error()
+
+        # Disable retries and run test_grant_user_to_virtual_table_value_error.
+        _service.disable_retries()
+        self.test_grant_user_to_virtual_table_value_error()
 
 class TestRevokeUserFromObject():
     """
@@ -426,6 +633,8 @@ class TestRevokeUserFromObject():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -464,6 +673,14 @@ class TestRevokeUserFromObject():
         assert 'table_name={}'.format(table_name) in query_string
         assert 'table_schema={}'.format(table_schema) in query_string
 
+    def test_revoke_user_from_object_all_params_with_retries(self):
+        # Enable retries and run test_revoke_user_from_object_all_params.
+        _service.enable_retries()
+        self.test_revoke_user_from_object_all_params()
+
+        # Disable retries and run test_revoke_user_from_object_all_params.
+        _service.disable_retries()
+        self.test_revoke_user_from_object_all_params()
 
     @responses.activate
     def test_revoke_user_from_object_value_error(self):
@@ -493,6 +710,14 @@ class TestRevokeUserFromObject():
                 _service.revoke_user_from_object(**req_copy)
 
 
+    def test_revoke_user_from_object_value_error_with_retries(self):
+        # Enable retries and run test_revoke_user_from_object_value_error.
+        _service.enable_retries()
+        self.test_revoke_user_from_object_value_error()
+
+        # Disable retries and run test_revoke_user_from_object_value_error.
+        _service.disable_retries()
+        self.test_revoke_user_from_object_value_error()
 
 # endregion
 ##############################################################################
@@ -504,6 +729,32 @@ class TestRevokeUserFromObject():
 ##############################################################################
 # region
 
+class TestNewInstance():
+    """
+    Test Class for new_instance
+    """
+
+    def test_new_instance(self):
+        """
+        new_instance()
+        """
+        os.environ['TEST_SERVICE_AUTH_TYPE'] = 'noAuth'
+
+        service = DataVirtualizationV1.new_instance(
+            service_name='TEST_SERVICE',
+        )
+
+        assert service is not None
+        assert isinstance(service, DataVirtualizationV1)
+
+    def test_new_instance_without_authenticator(self):
+        """
+        new_instance_without_authenticator()
+        """
+        with pytest.raises(ValueError, match='authenticator must be provided'):
+            service = DataVirtualizationV1.new_instance(
+            )
+
 class TestGrantRolesToVirtualizedTable():
     """
     Test Class for grant_roles_to_virtualized_table
@@ -513,6 +764,8 @@ class TestGrantRolesToVirtualizedTable():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -551,6 +804,14 @@ class TestGrantRolesToVirtualizedTable():
         assert req_body['table_schema'] == 'dv_ibmid_060000s4y5'
         assert req_body['role_name'] == 'PUBLIC'
 
+    def test_grant_roles_to_virtualized_table_all_params_with_retries(self):
+        # Enable retries and run test_grant_roles_to_virtualized_table_all_params.
+        _service.enable_retries()
+        self.test_grant_roles_to_virtualized_table_all_params()
+
+        # Disable retries and run test_grant_roles_to_virtualized_table_all_params.
+        _service.disable_retries()
+        self.test_grant_roles_to_virtualized_table_all_params()
 
     @responses.activate
     def test_grant_roles_to_virtualized_table_value_error(self):
@@ -579,6 +840,14 @@ class TestGrantRolesToVirtualizedTable():
                 _service.grant_roles_to_virtualized_table(**req_copy)
 
 
+    def test_grant_roles_to_virtualized_table_value_error_with_retries(self):
+        # Enable retries and run test_grant_roles_to_virtualized_table_value_error.
+        _service.enable_retries()
+        self.test_grant_roles_to_virtualized_table_value_error()
+
+        # Disable retries and run test_grant_roles_to_virtualized_table_value_error.
+        _service.disable_retries()
+        self.test_grant_roles_to_virtualized_table_value_error()
 
 class TestDvaasRevokeRoleFromTable():
     """
@@ -589,6 +858,8 @@ class TestDvaasRevokeRoleFromTable():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -627,6 +898,14 @@ class TestDvaasRevokeRoleFromTable():
         assert 'table_name={}'.format(table_name) in query_string
         assert 'table_schema={}'.format(table_schema) in query_string
 
+    def test_dvaas_revoke_role_from_table_all_params_with_retries(self):
+        # Enable retries and run test_dvaas_revoke_role_from_table_all_params.
+        _service.enable_retries()
+        self.test_dvaas_revoke_role_from_table_all_params()
+
+        # Disable retries and run test_dvaas_revoke_role_from_table_all_params.
+        _service.disable_retries()
+        self.test_dvaas_revoke_role_from_table_all_params()
 
     @responses.activate
     def test_dvaas_revoke_role_from_table_value_error(self):
@@ -656,6 +935,14 @@ class TestDvaasRevokeRoleFromTable():
                 _service.dvaas_revoke_role_from_table(**req_copy)
 
 
+    def test_dvaas_revoke_role_from_table_value_error_with_retries(self):
+        # Enable retries and run test_dvaas_revoke_role_from_table_value_error.
+        _service.enable_retries()
+        self.test_dvaas_revoke_role_from_table_value_error()
+
+        # Disable retries and run test_dvaas_revoke_role_from_table_value_error.
+        _service.disable_retries()
+        self.test_dvaas_revoke_role_from_table_value_error()
 
 class TestListTablesForRole():
     """
@@ -666,6 +953,8 @@ class TestListTablesForRole():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -702,6 +991,14 @@ class TestListTablesForRole():
         query_string = urllib.parse.unquote_plus(query_string)
         assert 'rolename={}'.format(rolename) in query_string
 
+    def test_list_tables_for_role_all_params_with_retries(self):
+        # Enable retries and run test_list_tables_for_role_all_params.
+        _service.enable_retries()
+        self.test_list_tables_for_role_all_params()
+
+        # Disable retries and run test_list_tables_for_role_all_params.
+        _service.disable_retries()
+        self.test_list_tables_for_role_all_params()
 
     @responses.activate
     def test_list_tables_for_role_value_error(self):
@@ -730,6 +1027,14 @@ class TestListTablesForRole():
                 _service.list_tables_for_role(**req_copy)
 
 
+    def test_list_tables_for_role_value_error_with_retries(self):
+        # Enable retries and run test_list_tables_for_role_value_error.
+        _service.enable_retries()
+        self.test_list_tables_for_role_value_error()
+
+        # Disable retries and run test_list_tables_for_role_value_error.
+        _service.disable_retries()
+        self.test_list_tables_for_role_value_error()
 
 # endregion
 ##############################################################################
@@ -741,6 +1046,32 @@ class TestListTablesForRole():
 ##############################################################################
 # region
 
+class TestNewInstance():
+    """
+    Test Class for new_instance
+    """
+
+    def test_new_instance(self):
+        """
+        new_instance()
+        """
+        os.environ['TEST_SERVICE_AUTH_TYPE'] = 'noAuth'
+
+        service = DataVirtualizationV1.new_instance(
+            service_name='TEST_SERVICE',
+        )
+
+        assert service is not None
+        assert isinstance(service, DataVirtualizationV1)
+
+    def test_new_instance_without_authenticator(self):
+        """
+        new_instance_without_authenticator()
+        """
+        with pytest.raises(ValueError, match='authenticator must be provided'):
+            service = DataVirtualizationV1.new_instance(
+            )
+
 class TestTurnOnPolicyV2():
     """
     Test Class for turn_on_policy_v2
@@ -750,6 +1081,8 @@ class TestTurnOnPolicyV2():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -786,6 +1119,14 @@ class TestTurnOnPolicyV2():
         query_string = urllib.parse.unquote_plus(query_string)
         assert 'status={}'.format(status) in query_string
 
+    def test_turn_on_policy_v2_all_params_with_retries(self):
+        # Enable retries and run test_turn_on_policy_v2_all_params.
+        _service.enable_retries()
+        self.test_turn_on_policy_v2_all_params()
+
+        # Disable retries and run test_turn_on_policy_v2_all_params.
+        _service.disable_retries()
+        self.test_turn_on_policy_v2_all_params()
 
     @responses.activate
     def test_turn_on_policy_v2_value_error(self):
@@ -814,6 +1155,14 @@ class TestTurnOnPolicyV2():
                 _service.turn_on_policy_v2(**req_copy)
 
 
+    def test_turn_on_policy_v2_value_error_with_retries(self):
+        # Enable retries and run test_turn_on_policy_v2_value_error.
+        _service.enable_retries()
+        self.test_turn_on_policy_v2_value_error()
+
+        # Disable retries and run test_turn_on_policy_v2_value_error.
+        _service.disable_retries()
+        self.test_turn_on_policy_v2_value_error()
 
 class TestCheckPolicyStatusV2():
     """
@@ -824,6 +1173,8 @@ class TestCheckPolicyStatusV2():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -851,6 +1202,14 @@ class TestCheckPolicyStatusV2():
         assert len(responses.calls) == 1
         assert response.status_code == 200
 
+    def test_check_policy_status_v2_all_params_with_retries(self):
+        # Enable retries and run test_check_policy_status_v2_all_params.
+        _service.enable_retries()
+        self.test_check_policy_status_v2_all_params()
+
+        # Disable retries and run test_check_policy_status_v2_all_params.
+        _service.disable_retries()
+        self.test_check_policy_status_v2_all_params()
 
 # endregion
 ##############################################################################
@@ -862,6 +1221,32 @@ class TestCheckPolicyStatusV2():
 ##############################################################################
 # region
 
+class TestNewInstance():
+    """
+    Test Class for new_instance
+    """
+
+    def test_new_instance(self):
+        """
+        new_instance()
+        """
+        os.environ['TEST_SERVICE_AUTH_TYPE'] = 'noAuth'
+
+        service = DataVirtualizationV1.new_instance(
+            service_name='TEST_SERVICE',
+        )
+
+        assert service is not None
+        assert isinstance(service, DataVirtualizationV1)
+
+    def test_new_instance_without_authenticator(self):
+        """
+        new_instance_without_authenticator()
+        """
+        with pytest.raises(ValueError, match='authenticator must be provided'):
+            service = DataVirtualizationV1.new_instance(
+            )
+
 class TestDvaasVirtualizeTable():
     """
     Test Class for dvaas_virtualize_table
@@ -871,6 +1256,8 @@ class TestDvaasVirtualizeTable():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -937,6 +1324,14 @@ class TestDvaasVirtualizeTable():
         assert req_body['is_included_columns'] == 'Y, Y, N'
         assert req_body['replace'] == False
 
+    def test_dvaas_virtualize_table_all_params_with_retries(self):
+        # Enable retries and run test_dvaas_virtualize_table_all_params.
+        _service.enable_retries()
+        self.test_dvaas_virtualize_table_all_params()
+
+        # Disable retries and run test_dvaas_virtualize_table_all_params.
+        _service.disable_retries()
+        self.test_dvaas_virtualize_table_all_params()
 
     @responses.activate
     def test_dvaas_virtualize_table_value_error(self):
@@ -987,6 +1382,14 @@ class TestDvaasVirtualizeTable():
                 _service.dvaas_virtualize_table(**req_copy)
 
 
+    def test_dvaas_virtualize_table_value_error_with_retries(self):
+        # Enable retries and run test_dvaas_virtualize_table_value_error.
+        _service.enable_retries()
+        self.test_dvaas_virtualize_table_value_error()
+
+        # Disable retries and run test_dvaas_virtualize_table_value_error.
+        _service.disable_retries()
+        self.test_dvaas_virtualize_table_value_error()
 
 class TestDeleteTable():
     """
@@ -997,6 +1400,8 @@ class TestDeleteTable():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -1032,6 +1437,14 @@ class TestDeleteTable():
         query_string = urllib.parse.unquote_plus(query_string)
         assert 'virtual_schema={}'.format(virtual_schema) in query_string
 
+    def test_delete_table_all_params_with_retries(self):
+        # Enable retries and run test_delete_table_all_params.
+        _service.enable_retries()
+        self.test_delete_table_all_params()
+
+        # Disable retries and run test_delete_table_all_params.
+        _service.disable_retries()
+        self.test_delete_table_all_params()
 
     @responses.activate
     def test_delete_table_value_error(self):
@@ -1059,6 +1472,199 @@ class TestDeleteTable():
                 _service.delete_table(**req_copy)
 
 
+    def test_delete_table_value_error_with_retries(self):
+        # Enable retries and run test_delete_table_value_error.
+        _service.enable_retries()
+        self.test_delete_table_value_error()
+
+        # Disable retries and run test_delete_table_value_error.
+        _service.disable_retries()
+        self.test_delete_table_value_error()
+
+class TestVirtualizeCosV2():
+    """
+    Test Class for virtualize_cos_v2
+    """
+
+    def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
+        if re.fullmatch('.*/+', request_url) is None:
+            return request_url
+        else:
+            return re.compile(request_url.rstrip('/') + '/+')
+
+    @responses.activate
+    def test_virtualize_cos_v2_all_params(self):
+        """
+        virtualize_cos_v2()
+        """
+        # Set up mock
+        url = self.preprocess_url(_base_url + '/v2/virtualization/cloud_object_storages')
+        mock_response = '{"message": "message"}'
+        responses.add(responses.POST,
+                      url,
+                      body=mock_response,
+                      content_type='application/json',
+                      status=200)
+
+        # Construct a dict representation of a VirtualizeCosV2RequestVirtualTableDefItem model
+        virtualize_cos_v2_request_virtual_table_def_item_model = {}
+        virtualize_cos_v2_request_virtual_table_def_item_model['column_name'] = 'Column_1'
+        virtualize_cos_v2_request_virtual_table_def_item_model['column_type'] = 'INTEGER'
+
+        # Set up parameter values
+        url = 's3a://testBucket/home/data.csv'
+        virtual_name = 'testString'
+        virtual_schema = 'testString'
+        virtual_table_def = [virtualize_cos_v2_request_virtual_table_def_item_model]
+        is_replace = False
+        options = 'INCPARTS=true'
+        jwt_auth_user_payload = 'testString'
+
+        # Invoke method
+        response = _service.virtualize_cos_v2(
+            url,
+            virtual_name,
+            virtual_schema,
+            virtual_table_def,
+            is_replace=is_replace,
+            options=options,
+            jwt_auth_user_payload=jwt_auth_user_payload,
+            headers={}
+        )
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+        # Validate body params
+        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
+        assert req_body['url'] == 's3a://testBucket/home/data.csv'
+        assert req_body['virtual_name'] == 'testString'
+        assert req_body['virtual_schema'] == 'testString'
+        assert req_body['virtual_table_def'] == [virtualize_cos_v2_request_virtual_table_def_item_model]
+        assert req_body['is_replace'] == False
+        assert req_body['options'] == 'INCPARTS=true'
+
+    def test_virtualize_cos_v2_all_params_with_retries(self):
+        # Enable retries and run test_virtualize_cos_v2_all_params.
+        _service.enable_retries()
+        self.test_virtualize_cos_v2_all_params()
+
+        # Disable retries and run test_virtualize_cos_v2_all_params.
+        _service.disable_retries()
+        self.test_virtualize_cos_v2_all_params()
+
+    @responses.activate
+    def test_virtualize_cos_v2_required_params(self):
+        """
+        test_virtualize_cos_v2_required_params()
+        """
+        # Set up mock
+        url = self.preprocess_url(_base_url + '/v2/virtualization/cloud_object_storages')
+        mock_response = '{"message": "message"}'
+        responses.add(responses.POST,
+                      url,
+                      body=mock_response,
+                      content_type='application/json',
+                      status=200)
+
+        # Construct a dict representation of a VirtualizeCosV2RequestVirtualTableDefItem model
+        virtualize_cos_v2_request_virtual_table_def_item_model = {}
+        virtualize_cos_v2_request_virtual_table_def_item_model['column_name'] = 'Column_1'
+        virtualize_cos_v2_request_virtual_table_def_item_model['column_type'] = 'INTEGER'
+
+        # Set up parameter values
+        url = 's3a://testBucket/home/data.csv'
+        virtual_name = 'testString'
+        virtual_schema = 'testString'
+        virtual_table_def = [virtualize_cos_v2_request_virtual_table_def_item_model]
+        is_replace = False
+        options = 'INCPARTS=true'
+
+        # Invoke method
+        response = _service.virtualize_cos_v2(
+            url,
+            virtual_name,
+            virtual_schema,
+            virtual_table_def,
+            is_replace=is_replace,
+            options=options,
+            headers={}
+        )
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+        # Validate body params
+        req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
+        assert req_body['url'] == 's3a://testBucket/home/data.csv'
+        assert req_body['virtual_name'] == 'testString'
+        assert req_body['virtual_schema'] == 'testString'
+        assert req_body['virtual_table_def'] == [virtualize_cos_v2_request_virtual_table_def_item_model]
+        assert req_body['is_replace'] == False
+        assert req_body['options'] == 'INCPARTS=true'
+
+    def test_virtualize_cos_v2_required_params_with_retries(self):
+        # Enable retries and run test_virtualize_cos_v2_required_params.
+        _service.enable_retries()
+        self.test_virtualize_cos_v2_required_params()
+
+        # Disable retries and run test_virtualize_cos_v2_required_params.
+        _service.disable_retries()
+        self.test_virtualize_cos_v2_required_params()
+
+    @responses.activate
+    def test_virtualize_cos_v2_value_error(self):
+        """
+        test_virtualize_cos_v2_value_error()
+        """
+        # Set up mock
+        url = self.preprocess_url(_base_url + '/v2/virtualization/cloud_object_storages')
+        mock_response = '{"message": "message"}'
+        responses.add(responses.POST,
+                      url,
+                      body=mock_response,
+                      content_type='application/json',
+                      status=200)
+
+        # Construct a dict representation of a VirtualizeCosV2RequestVirtualTableDefItem model
+        virtualize_cos_v2_request_virtual_table_def_item_model = {}
+        virtualize_cos_v2_request_virtual_table_def_item_model['column_name'] = 'Column_1'
+        virtualize_cos_v2_request_virtual_table_def_item_model['column_type'] = 'INTEGER'
+
+        # Set up parameter values
+        url = 's3a://testBucket/home/data.csv'
+        virtual_name = 'testString'
+        virtual_schema = 'testString'
+        virtual_table_def = [virtualize_cos_v2_request_virtual_table_def_item_model]
+        is_replace = False
+        options = 'INCPARTS=true'
+
+        # Pass in all but one required param and check for a ValueError
+        req_param_dict = {
+            "url": url,
+            "virtual_name": virtual_name,
+            "virtual_schema": virtual_schema,
+            "virtual_table_def": virtual_table_def,
+        }
+        for param in req_param_dict.keys():
+            req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
+            with pytest.raises(ValueError):
+                _service.virtualize_cos_v2(**req_copy)
+
+
+    def test_virtualize_cos_v2_value_error_with_retries(self):
+        # Enable retries and run test_virtualize_cos_v2_value_error.
+        _service.enable_retries()
+        self.test_virtualize_cos_v2_value_error()
+
+        # Disable retries and run test_virtualize_cos_v2_value_error.
+        _service.disable_retries()
+        self.test_virtualize_cos_v2_value_error()
 
 # endregion
 ##############################################################################
@@ -1070,6 +1676,32 @@ class TestDeleteTable():
 ##############################################################################
 # region
 
+class TestNewInstance():
+    """
+    Test Class for new_instance
+    """
+
+    def test_new_instance(self):
+        """
+        new_instance()
+        """
+        os.environ['TEST_SERVICE_AUTH_TYPE'] = 'noAuth'
+
+        service = DataVirtualizationV1.new_instance(
+            service_name='TEST_SERVICE',
+        )
+
+        assert service is not None
+        assert isinstance(service, DataVirtualizationV1)
+
+    def test_new_instance_without_authenticator(self):
+        """
+        new_instance_without_authenticator()
+        """
+        with pytest.raises(ValueError, match='authenticator must be provided'):
+            service = DataVirtualizationV1.new_instance(
+            )
+
 class TestGetPrimaryCatalog():
     """
     Test Class for get_primary_catalog
@@ -1079,6 +1711,8 @@ class TestGetPrimaryCatalog():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -1106,6 +1740,14 @@ class TestGetPrimaryCatalog():
         assert len(responses.calls) == 1
         assert response.status_code == 200
 
+    def test_get_primary_catalog_all_params_with_retries(self):
+        # Enable retries and run test_get_primary_catalog_all_params.
+        _service.enable_retries()
+        self.test_get_primary_catalog_all_params()
+
+        # Disable retries and run test_get_primary_catalog_all_params.
+        _service.disable_retries()
+        self.test_get_primary_catalog_all_params()
 
 class TestPostPrimaryCatalog():
     """
@@ -1116,6 +1758,8 @@ class TestPostPrimaryCatalog():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -1151,6 +1795,14 @@ class TestPostPrimaryCatalog():
         req_body = json.loads(str(responses.calls[0].request.body, 'utf-8'))
         assert req_body['guid'] == 'd77fc432-9b1a-4938-a2a5-9f37e08041f6'
 
+    def test_post_primary_catalog_all_params_with_retries(self):
+        # Enable retries and run test_post_primary_catalog_all_params.
+        _service.enable_retries()
+        self.test_post_primary_catalog_all_params()
+
+        # Disable retries and run test_post_primary_catalog_all_params.
+        _service.disable_retries()
+        self.test_post_primary_catalog_all_params()
 
     @responses.activate
     def test_post_primary_catalog_value_error(self):
@@ -1179,6 +1831,14 @@ class TestPostPrimaryCatalog():
                 _service.post_primary_catalog(**req_copy)
 
 
+    def test_post_primary_catalog_value_error_with_retries(self):
+        # Enable retries and run test_post_primary_catalog_value_error.
+        _service.enable_retries()
+        self.test_post_primary_catalog_value_error()
+
+        # Disable retries and run test_post_primary_catalog_value_error.
+        _service.disable_retries()
+        self.test_post_primary_catalog_value_error()
 
 class TestDeletePrimaryCatalog():
     """
@@ -1189,6 +1849,8 @@ class TestDeletePrimaryCatalog():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -1222,6 +1884,14 @@ class TestDeletePrimaryCatalog():
         query_string = urllib.parse.unquote_plus(query_string)
         assert 'guid={}'.format(guid) in query_string
 
+    def test_delete_primary_catalog_all_params_with_retries(self):
+        # Enable retries and run test_delete_primary_catalog_all_params.
+        _service.enable_retries()
+        self.test_delete_primary_catalog_all_params()
+
+        # Disable retries and run test_delete_primary_catalog_all_params.
+        _service.disable_retries()
+        self.test_delete_primary_catalog_all_params()
 
     @responses.activate
     def test_delete_primary_catalog_value_error(self):
@@ -1247,6 +1917,14 @@ class TestDeletePrimaryCatalog():
                 _service.delete_primary_catalog(**req_copy)
 
 
+    def test_delete_primary_catalog_value_error_with_retries(self):
+        # Enable retries and run test_delete_primary_catalog_value_error.
+        _service.enable_retries()
+        self.test_delete_primary_catalog_value_error()
+
+        # Disable retries and run test_delete_primary_catalog_value_error.
+        _service.disable_retries()
+        self.test_delete_primary_catalog_value_error()
 
 # endregion
 ##############################################################################
@@ -1258,6 +1936,32 @@ class TestDeletePrimaryCatalog():
 ##############################################################################
 # region
 
+class TestNewInstance():
+    """
+    Test Class for new_instance
+    """
+
+    def test_new_instance(self):
+        """
+        new_instance()
+        """
+        os.environ['TEST_SERVICE_AUTH_TYPE'] = 'noAuth'
+
+        service = DataVirtualizationV1.new_instance(
+            service_name='TEST_SERVICE',
+        )
+
+        assert service is not None
+        assert isinstance(service, DataVirtualizationV1)
+
+    def test_new_instance_without_authenticator(self):
+        """
+        new_instance_without_authenticator()
+        """
+        with pytest.raises(ValueError, match='authenticator must be provided'):
+            service = DataVirtualizationV1.new_instance(
+            )
+
 class TestPublishAssets():
     """
     Test Class for publish_assets
@@ -1267,6 +1971,8 @@ class TestPublishAssets():
         """
         Preprocess the request URL to ensure the mock response will be found.
         """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
         if re.fullmatch('.*/+', request_url) is None:
             return request_url
         else:
@@ -1313,6 +2019,14 @@ class TestPublishAssets():
         assert req_body['allow_duplicates'] == False
         assert req_body['assets'] == [post_primary_catalog_parameters_assets_item_model]
 
+    def test_publish_assets_all_params_with_retries(self):
+        # Enable retries and run test_publish_assets_all_params.
+        _service.enable_retries()
+        self.test_publish_assets_all_params()
+
+        # Disable retries and run test_publish_assets_all_params.
+        _service.disable_retries()
+        self.test_publish_assets_all_params()
 
     @responses.activate
     def test_publish_assets_value_error(self):
@@ -1350,10 +2064,236 @@ class TestPublishAssets():
                 _service.publish_assets(**req_copy)
 
 
+    def test_publish_assets_value_error_with_retries(self):
+        # Enable retries and run test_publish_assets_value_error.
+        _service.enable_retries()
+        self.test_publish_assets_value_error()
+
+        # Disable retries and run test_publish_assets_value_error.
+        _service.disable_retries()
+        self.test_publish_assets_value_error()
 
 # endregion
 ##############################################################################
 # End of Service: PublishObjects
+##############################################################################
+
+##############################################################################
+# Start of Service: Caches
+##############################################################################
+# region
+
+class TestNewInstance():
+    """
+    Test Class for new_instance
+    """
+
+    def test_new_instance(self):
+        """
+        new_instance()
+        """
+        os.environ['TEST_SERVICE_AUTH_TYPE'] = 'noAuth'
+
+        service = DataVirtualizationV1.new_instance(
+            service_name='TEST_SERVICE',
+        )
+
+        assert service is not None
+        assert isinstance(service, DataVirtualizationV1)
+
+    def test_new_instance_without_authenticator(self):
+        """
+        new_instance_without_authenticator()
+        """
+        with pytest.raises(ValueError, match='authenticator must be provided'):
+            service = DataVirtualizationV1.new_instance(
+            )
+
+class TestGetCachesList():
+    """
+    Test Class for get_caches_list
+    """
+
+    def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
+        if re.fullmatch('.*/+', request_url) is None:
+            return request_url
+        else:
+            return re.compile(request_url.rstrip('/') + '/+')
+
+    @responses.activate
+    def test_get_caches_list_all_params(self):
+        """
+        get_caches_list()
+        """
+        # Set up mock
+        url = self.preprocess_url(_base_url + '/v1/caching/caches')
+        mock_response = '{"caches": [{"name": "name", "id": "id", "query": "query", "owner_id": "owner_id", "type": "type", "created_timestamp": "created_timestamp", "last_modified_timestamp": "last_modified_timestamp", "last_refresh_timestamp": "last_refresh_timestamp", "last_used_timestamp": "last_used_timestamp", "state": "state", "size": 4, "cardinality": 11, "time_taken_for_refresh": 22, "refresh_count": 13, "hit_count": 9, "refresh_schedule": "refresh_schedule", "refresh_schedule_desc": "refresh_schedule_desc", "status_msg": "status_msg"}]}'
+        responses.add(responses.GET,
+                      url,
+                      body=mock_response,
+                      content_type='application/json',
+                      status=200)
+
+        # Invoke method
+        response = _service.get_caches_list()
+
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+
+    def test_get_caches_list_all_params_with_retries(self):
+        # Enable retries and run test_get_caches_list_all_params.
+        _service.enable_retries()
+        self.test_get_caches_list_all_params()
+
+        # Disable retries and run test_get_caches_list_all_params.
+        _service.disable_retries()
+        self.test_get_caches_list_all_params()
+
+class TestGetCache():
+    """
+    Test Class for get_cache
+    """
+
+    def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
+        if re.fullmatch('.*/+', request_url) is None:
+            return request_url
+        else:
+            return re.compile(request_url.rstrip('/') + '/+')
+
+    @responses.activate
+    def test_get_cache_all_params(self):
+        """
+        get_cache()
+        """
+        # Set up mock
+        url = self.preprocess_url(_base_url + '/v1/caching/caches/DV20210810191252390327')
+        mock_response = '{"name": "name", "id": "id", "query": "query", "owner_id": "owner_id", "type": "type", "created_timestamp": "created_timestamp", "last_modified_timestamp": "last_modified_timestamp", "last_refresh_timestamp": "last_refresh_timestamp", "last_used_timestamp": "last_used_timestamp", "state": "state", "size": 4, "cardinality": 11, "time_taken_for_refresh": 22, "refresh_count": 13, "hit_count": 9, "refresh_schedule": "refresh_schedule", "refresh_schedule_desc": "refresh_schedule_desc", "status_msg": "status_msg"}'
+        responses.add(responses.GET,
+                      url,
+                      body=mock_response,
+                      content_type='application/json',
+                      status=200)
+
+        # Set up parameter values
+        id = 'DV20210810191252390327'
+
+        # Invoke method
+        response = _service.get_cache(
+            id,
+            headers={}
+        )
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+
+    def test_get_cache_all_params_with_retries(self):
+        # Enable retries and run test_get_cache_all_params.
+        _service.enable_retries()
+        self.test_get_cache_all_params()
+
+        # Disable retries and run test_get_cache_all_params.
+        _service.disable_retries()
+        self.test_get_cache_all_params()
+
+    @responses.activate
+    def test_get_cache_value_error(self):
+        """
+        test_get_cache_value_error()
+        """
+        # Set up mock
+        url = self.preprocess_url(_base_url + '/v1/caching/caches/DV20210810191252390327')
+        mock_response = '{"name": "name", "id": "id", "query": "query", "owner_id": "owner_id", "type": "type", "created_timestamp": "created_timestamp", "last_modified_timestamp": "last_modified_timestamp", "last_refresh_timestamp": "last_refresh_timestamp", "last_used_timestamp": "last_used_timestamp", "state": "state", "size": 4, "cardinality": 11, "time_taken_for_refresh": 22, "refresh_count": 13, "hit_count": 9, "refresh_schedule": "refresh_schedule", "refresh_schedule_desc": "refresh_schedule_desc", "status_msg": "status_msg"}'
+        responses.add(responses.GET,
+                      url,
+                      body=mock_response,
+                      content_type='application/json',
+                      status=200)
+
+        # Set up parameter values
+        id = 'DV20210810191252390327'
+
+        # Pass in all but one required param and check for a ValueError
+        req_param_dict = {
+            "id": id,
+        }
+        for param in req_param_dict.keys():
+            req_copy = {key:val if key is not param else None for (key,val) in req_param_dict.items()}
+            with pytest.raises(ValueError):
+                _service.get_cache(**req_copy)
+
+
+    def test_get_cache_value_error_with_retries(self):
+        # Enable retries and run test_get_cache_value_error.
+        _service.enable_retries()
+        self.test_get_cache_value_error()
+
+        # Disable retries and run test_get_cache_value_error.
+        _service.disable_retries()
+        self.test_get_cache_value_error()
+
+class TestGetCacheStorageDetail():
+    """
+    Test Class for get_cache_storage_detail
+    """
+
+    def preprocess_url(self, request_url: str):
+        """
+        Preprocess the request URL to ensure the mock response will be found.
+        """
+        request_url = urllib.parse.unquote(request_url) # don't double-encode if already encoded
+        request_url = urllib.parse.quote(request_url, safe=':/')
+        if re.fullmatch('.*/+', request_url) is None:
+            return request_url
+        else:
+            return re.compile(request_url.rstrip('/') + '/+')
+
+    @responses.activate
+    def test_get_cache_storage_detail_all_params(self):
+        """
+        get_cache_storage_detail()
+        """
+        # Set up mock
+        url = self.preprocess_url(_base_url + '/v1/caching/storage')
+        mock_response = '{"total_size": "total_size", "enabled": {"size": 4, "count": 5}, "disabled": {"size": 4, "count": 5}}'
+        responses.add(responses.GET,
+                      url,
+                      body=mock_response,
+                      content_type='application/json',
+                      status=200)
+
+        # Invoke method
+        response = _service.get_cache_storage_detail()
+
+
+        # Check for correct operation
+        assert len(responses.calls) == 1
+        assert response.status_code == 200
+
+    def test_get_cache_storage_detail_all_params_with_retries(self):
+        # Enable retries and run test_get_cache_storage_detail_all_params.
+        _service.enable_retries()
+        self.test_get_cache_storage_detail_all_params()
+
+        # Disable retries and run test_get_cache_storage_detail_all_params.
+        _service.disable_retries()
+        self.test_get_cache_storage_detail_all_params()
+
+# endregion
+##############################################################################
+# End of Service: Caches
 ##############################################################################
 
 
@@ -1361,6 +2301,149 @@ class TestPublishAssets():
 # Start of Model Tests
 ##############################################################################
 # region
+class TestModel_CacheListResponse():
+    """
+    Test Class for CacheListResponse
+    """
+
+    def test_cache_list_response_serialization(self):
+        """
+        Test serialization/deserialization for CacheListResponse
+        """
+
+        # Construct dict forms of any model objects needed in order to build this model.
+
+        cache_list_response_caches_item_model = {} # CacheListResponseCachesItem
+        cache_list_response_caches_item_model['name'] = 'testString'
+        cache_list_response_caches_item_model['id'] = 'testString'
+        cache_list_response_caches_item_model['query'] = 'testString'
+        cache_list_response_caches_item_model['owner_id'] = 'testString'
+        cache_list_response_caches_item_model['type'] = 'testString'
+        cache_list_response_caches_item_model['created_timestamp'] = 'testString'
+        cache_list_response_caches_item_model['last_modified_timestamp'] = 'testString'
+        cache_list_response_caches_item_model['last_refresh_timestamp'] = 'testString'
+        cache_list_response_caches_item_model['last_used_timestamp'] = 'testString'
+        cache_list_response_caches_item_model['state'] = 'testString'
+        cache_list_response_caches_item_model['size'] = 38
+        cache_list_response_caches_item_model['cardinality'] = 38
+        cache_list_response_caches_item_model['time_taken_for_refresh'] = 38
+        cache_list_response_caches_item_model['refresh_count'] = 38
+        cache_list_response_caches_item_model['hit_count'] = 38
+        cache_list_response_caches_item_model['refresh_schedule'] = 'testString'
+        cache_list_response_caches_item_model['refresh_schedule_desc'] = 'testString'
+        cache_list_response_caches_item_model['status_msg'] = 'testString'
+
+        # Construct a json representation of a CacheListResponse model
+        cache_list_response_model_json = {}
+        cache_list_response_model_json['caches'] = [cache_list_response_caches_item_model]
+
+        # Construct a model instance of CacheListResponse by calling from_dict on the json representation
+        cache_list_response_model = CacheListResponse.from_dict(cache_list_response_model_json)
+        assert cache_list_response_model != False
+
+        # Construct a model instance of CacheListResponse by calling from_dict on the json representation
+        cache_list_response_model_dict = CacheListResponse.from_dict(cache_list_response_model_json).__dict__
+        cache_list_response_model2 = CacheListResponse(**cache_list_response_model_dict)
+
+        # Verify the model instances are equivalent
+        assert cache_list_response_model == cache_list_response_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        cache_list_response_model_json2 = cache_list_response_model.to_dict()
+        assert cache_list_response_model_json2 == cache_list_response_model_json
+
+class TestModel_CacheListResponseCachesItem():
+    """
+    Test Class for CacheListResponseCachesItem
+    """
+
+    def test_cache_list_response_caches_item_serialization(self):
+        """
+        Test serialization/deserialization for CacheListResponseCachesItem
+        """
+
+        # Construct a json representation of a CacheListResponseCachesItem model
+        cache_list_response_caches_item_model_json = {}
+        cache_list_response_caches_item_model_json['name'] = 'testString'
+        cache_list_response_caches_item_model_json['id'] = 'testString'
+        cache_list_response_caches_item_model_json['query'] = 'testString'
+        cache_list_response_caches_item_model_json['owner_id'] = 'testString'
+        cache_list_response_caches_item_model_json['type'] = 'testString'
+        cache_list_response_caches_item_model_json['created_timestamp'] = 'testString'
+        cache_list_response_caches_item_model_json['last_modified_timestamp'] = 'testString'
+        cache_list_response_caches_item_model_json['last_refresh_timestamp'] = 'testString'
+        cache_list_response_caches_item_model_json['last_used_timestamp'] = 'testString'
+        cache_list_response_caches_item_model_json['state'] = 'testString'
+        cache_list_response_caches_item_model_json['size'] = 38
+        cache_list_response_caches_item_model_json['cardinality'] = 38
+        cache_list_response_caches_item_model_json['time_taken_for_refresh'] = 38
+        cache_list_response_caches_item_model_json['refresh_count'] = 38
+        cache_list_response_caches_item_model_json['hit_count'] = 38
+        cache_list_response_caches_item_model_json['refresh_schedule'] = 'testString'
+        cache_list_response_caches_item_model_json['refresh_schedule_desc'] = 'testString'
+        cache_list_response_caches_item_model_json['status_msg'] = 'testString'
+
+        # Construct a model instance of CacheListResponseCachesItem by calling from_dict on the json representation
+        cache_list_response_caches_item_model = CacheListResponseCachesItem.from_dict(cache_list_response_caches_item_model_json)
+        assert cache_list_response_caches_item_model != False
+
+        # Construct a model instance of CacheListResponseCachesItem by calling from_dict on the json representation
+        cache_list_response_caches_item_model_dict = CacheListResponseCachesItem.from_dict(cache_list_response_caches_item_model_json).__dict__
+        cache_list_response_caches_item_model2 = CacheListResponseCachesItem(**cache_list_response_caches_item_model_dict)
+
+        # Verify the model instances are equivalent
+        assert cache_list_response_caches_item_model == cache_list_response_caches_item_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        cache_list_response_caches_item_model_json2 = cache_list_response_caches_item_model.to_dict()
+        assert cache_list_response_caches_item_model_json2 == cache_list_response_caches_item_model_json
+
+class TestModel_CacheResponse():
+    """
+    Test Class for CacheResponse
+    """
+
+    def test_cache_response_serialization(self):
+        """
+        Test serialization/deserialization for CacheResponse
+        """
+
+        # Construct a json representation of a CacheResponse model
+        cache_response_model_json = {}
+        cache_response_model_json['name'] = 'testString'
+        cache_response_model_json['id'] = 'testString'
+        cache_response_model_json['query'] = 'testString'
+        cache_response_model_json['owner_id'] = 'testString'
+        cache_response_model_json['type'] = 'testString'
+        cache_response_model_json['created_timestamp'] = 'testString'
+        cache_response_model_json['last_modified_timestamp'] = 'testString'
+        cache_response_model_json['last_refresh_timestamp'] = 'testString'
+        cache_response_model_json['last_used_timestamp'] = 'testString'
+        cache_response_model_json['state'] = 'testString'
+        cache_response_model_json['size'] = 38
+        cache_response_model_json['cardinality'] = 38
+        cache_response_model_json['time_taken_for_refresh'] = 38
+        cache_response_model_json['refresh_count'] = 38
+        cache_response_model_json['hit_count'] = 38
+        cache_response_model_json['refresh_schedule'] = 'testString'
+        cache_response_model_json['refresh_schedule_desc'] = 'testString'
+        cache_response_model_json['status_msg'] = 'testString'
+
+        # Construct a model instance of CacheResponse by calling from_dict on the json representation
+        cache_response_model = CacheResponse.from_dict(cache_response_model_json)
+        assert cache_response_model != False
+
+        # Construct a model instance of CacheResponse by calling from_dict on the json representation
+        cache_response_model_dict = CacheResponse.from_dict(cache_response_model_json).__dict__
+        cache_response_model2 = CacheResponse(**cache_response_model_dict)
+
+        # Verify the model instances are equivalent
+        assert cache_response_model == cache_response_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        cache_response_model_json2 = cache_response_model.to_dict()
+        assert cache_response_model_json2 == cache_response_model_json
+
 class TestModel_CatalogPublishResponseDuplicateAssetsItem():
     """
     Test Class for CatalogPublishResponseDuplicateAssetsItem
@@ -1625,6 +2708,41 @@ class TestModel_DatasourceConnectionsListDatasourceConnectionsItemDataSourcesIte
         datasource_connections_list_datasource_connections_item_data_sources_item_model_json2 = datasource_connections_list_datasource_connections_item_data_sources_item_model.to_dict()
         assert datasource_connections_list_datasource_connections_item_data_sources_item_model_json2 == datasource_connections_list_datasource_connections_item_data_sources_item_model_json
 
+class TestModel_ObjStoreConnectionResponseV2CosConnectionsItem():
+    """
+    Test Class for ObjStoreConnectionResponseV2CosConnectionsItem
+    """
+
+    def test_obj_store_connection_response_v2_cos_connections_item_serialization(self):
+        """
+        Test serialization/deserialization for ObjStoreConnectionResponseV2CosConnectionsItem
+        """
+
+        # Construct a json representation of a ObjStoreConnectionResponseV2CosConnectionsItem model
+        obj_store_connection_response_v2_cos_connections_item_model_json = {}
+        obj_store_connection_response_v2_cos_connections_item_model_json['bucket_name'] = 'newbigsqlbucket'
+        obj_store_connection_response_v2_cos_connections_item_model_json['ccid'] = 'c28e0248-82ad-4aca-a658-90a626769fba'
+        obj_store_connection_response_v2_cos_connections_item_model_json['cid'] = 'CEPH10000'
+        obj_store_connection_response_v2_cos_connections_item_model_json['endpoint'] = 'http://jobs-m-2.fyre.ibm.com'
+        obj_store_connection_response_v2_cos_connections_item_model_json['removed'] = False
+        obj_store_connection_response_v2_cos_connections_item_model_json['service_type'] = 'CEPH'
+        obj_store_connection_response_v2_cos_connections_item_model_json['status'] = 'VALID'
+
+        # Construct a model instance of ObjStoreConnectionResponseV2CosConnectionsItem by calling from_dict on the json representation
+        obj_store_connection_response_v2_cos_connections_item_model = ObjStoreConnectionResponseV2CosConnectionsItem.from_dict(obj_store_connection_response_v2_cos_connections_item_model_json)
+        assert obj_store_connection_response_v2_cos_connections_item_model != False
+
+        # Construct a model instance of ObjStoreConnectionResponseV2CosConnectionsItem by calling from_dict on the json representation
+        obj_store_connection_response_v2_cos_connections_item_model_dict = ObjStoreConnectionResponseV2CosConnectionsItem.from_dict(obj_store_connection_response_v2_cos_connections_item_model_json).__dict__
+        obj_store_connection_response_v2_cos_connections_item_model2 = ObjStoreConnectionResponseV2CosConnectionsItem(**obj_store_connection_response_v2_cos_connections_item_model_dict)
+
+        # Verify the model instances are equivalent
+        assert obj_store_connection_response_v2_cos_connections_item_model == obj_store_connection_response_v2_cos_connections_item_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        obj_store_connection_response_v2_cos_connections_item_model_json2 = obj_store_connection_response_v2_cos_connections_item_model.to_dict()
+        assert obj_store_connection_response_v2_cos_connections_item_model_json2 == obj_store_connection_response_v2_cos_connections_item_model_json
+
 class TestModel_PostDatasourceConnection():
     """
     Test Class for PostDatasourceConnection
@@ -1811,6 +2929,107 @@ class TestModel_PrimaryCatalogInfoMetadata():
         primary_catalog_info_metadata_model_json2 = primary_catalog_info_metadata_model.to_dict()
         assert primary_catalog_info_metadata_model_json2 == primary_catalog_info_metadata_model_json
 
+class TestModel_StorageDetails():
+    """
+    Test Class for StorageDetails
+    """
+
+    def test_storage_details_serialization(self):
+        """
+        Test serialization/deserialization for StorageDetails
+        """
+
+        # Construct dict forms of any model objects needed in order to build this model.
+
+        storage_details_enabled_model = {} # StorageDetailsEnabled
+        storage_details_enabled_model['size'] = 38
+        storage_details_enabled_model['count'] = 38
+
+        storage_details_disabled_model = {} # StorageDetailsDisabled
+        storage_details_disabled_model['size'] = 38
+        storage_details_disabled_model['count'] = 38
+
+        # Construct a json representation of a StorageDetails model
+        storage_details_model_json = {}
+        storage_details_model_json['total_size'] = 'testString'
+        storage_details_model_json['enabled'] = storage_details_enabled_model
+        storage_details_model_json['disabled'] = storage_details_disabled_model
+
+        # Construct a model instance of StorageDetails by calling from_dict on the json representation
+        storage_details_model = StorageDetails.from_dict(storage_details_model_json)
+        assert storage_details_model != False
+
+        # Construct a model instance of StorageDetails by calling from_dict on the json representation
+        storage_details_model_dict = StorageDetails.from_dict(storage_details_model_json).__dict__
+        storage_details_model2 = StorageDetails(**storage_details_model_dict)
+
+        # Verify the model instances are equivalent
+        assert storage_details_model == storage_details_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        storage_details_model_json2 = storage_details_model.to_dict()
+        assert storage_details_model_json2 == storage_details_model_json
+
+class TestModel_StorageDetailsDisabled():
+    """
+    Test Class for StorageDetailsDisabled
+    """
+
+    def test_storage_details_disabled_serialization(self):
+        """
+        Test serialization/deserialization for StorageDetailsDisabled
+        """
+
+        # Construct a json representation of a StorageDetailsDisabled model
+        storage_details_disabled_model_json = {}
+        storage_details_disabled_model_json['size'] = 38
+        storage_details_disabled_model_json['count'] = 38
+
+        # Construct a model instance of StorageDetailsDisabled by calling from_dict on the json representation
+        storage_details_disabled_model = StorageDetailsDisabled.from_dict(storage_details_disabled_model_json)
+        assert storage_details_disabled_model != False
+
+        # Construct a model instance of StorageDetailsDisabled by calling from_dict on the json representation
+        storage_details_disabled_model_dict = StorageDetailsDisabled.from_dict(storage_details_disabled_model_json).__dict__
+        storage_details_disabled_model2 = StorageDetailsDisabled(**storage_details_disabled_model_dict)
+
+        # Verify the model instances are equivalent
+        assert storage_details_disabled_model == storage_details_disabled_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        storage_details_disabled_model_json2 = storage_details_disabled_model.to_dict()
+        assert storage_details_disabled_model_json2 == storage_details_disabled_model_json
+
+class TestModel_StorageDetailsEnabled():
+    """
+    Test Class for StorageDetailsEnabled
+    """
+
+    def test_storage_details_enabled_serialization(self):
+        """
+        Test serialization/deserialization for StorageDetailsEnabled
+        """
+
+        # Construct a json representation of a StorageDetailsEnabled model
+        storage_details_enabled_model_json = {}
+        storage_details_enabled_model_json['size'] = 38
+        storage_details_enabled_model_json['count'] = 38
+
+        # Construct a model instance of StorageDetailsEnabled by calling from_dict on the json representation
+        storage_details_enabled_model = StorageDetailsEnabled.from_dict(storage_details_enabled_model_json)
+        assert storage_details_enabled_model != False
+
+        # Construct a model instance of StorageDetailsEnabled by calling from_dict on the json representation
+        storage_details_enabled_model_dict = StorageDetailsEnabled.from_dict(storage_details_enabled_model_json).__dict__
+        storage_details_enabled_model2 = StorageDetailsEnabled(**storage_details_enabled_model_dict)
+
+        # Verify the model instances are equivalent
+        assert storage_details_enabled_model == storage_details_enabled_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        storage_details_enabled_model_json2 = storage_details_enabled_model.to_dict()
+        assert storage_details_enabled_model_json2 == storage_details_enabled_model_json
+
 class TestModel_TablesForRoleResponse():
     """
     Test Class for TablesForRoleResponse
@@ -1904,6 +3123,36 @@ class TestModel_TurnOnPolicyV2Response():
         # Convert model instance back to dict and verify no loss of data
         turn_on_policy_v2_response_model_json2 = turn_on_policy_v2_response_model.to_dict()
         assert turn_on_policy_v2_response_model_json2 == turn_on_policy_v2_response_model_json
+
+class TestModel_VirtualizeCosV2RequestVirtualTableDefItem():
+    """
+    Test Class for VirtualizeCosV2RequestVirtualTableDefItem
+    """
+
+    def test_virtualize_cos_v2_request_virtual_table_def_item_serialization(self):
+        """
+        Test serialization/deserialization for VirtualizeCosV2RequestVirtualTableDefItem
+        """
+
+        # Construct a json representation of a VirtualizeCosV2RequestVirtualTableDefItem model
+        virtualize_cos_v2_request_virtual_table_def_item_model_json = {}
+        virtualize_cos_v2_request_virtual_table_def_item_model_json['column_name'] = 'Column_1'
+        virtualize_cos_v2_request_virtual_table_def_item_model_json['column_type'] = 'INTEGER'
+
+        # Construct a model instance of VirtualizeCosV2RequestVirtualTableDefItem by calling from_dict on the json representation
+        virtualize_cos_v2_request_virtual_table_def_item_model = VirtualizeCosV2RequestVirtualTableDefItem.from_dict(virtualize_cos_v2_request_virtual_table_def_item_model_json)
+        assert virtualize_cos_v2_request_virtual_table_def_item_model != False
+
+        # Construct a model instance of VirtualizeCosV2RequestVirtualTableDefItem by calling from_dict on the json representation
+        virtualize_cos_v2_request_virtual_table_def_item_model_dict = VirtualizeCosV2RequestVirtualTableDefItem.from_dict(virtualize_cos_v2_request_virtual_table_def_item_model_json).__dict__
+        virtualize_cos_v2_request_virtual_table_def_item_model2 = VirtualizeCosV2RequestVirtualTableDefItem(**virtualize_cos_v2_request_virtual_table_def_item_model_dict)
+
+        # Verify the model instances are equivalent
+        assert virtualize_cos_v2_request_virtual_table_def_item_model == virtualize_cos_v2_request_virtual_table_def_item_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        virtualize_cos_v2_request_virtual_table_def_item_model_json2 = virtualize_cos_v2_request_virtual_table_def_item_model.to_dict()
+        assert virtualize_cos_v2_request_virtual_table_def_item_model_json2 == virtualize_cos_v2_request_virtual_table_def_item_model_json
 
 class TestModel_VirtualizeTableParameterSourceTableDefItem():
     """
@@ -2042,6 +3291,46 @@ class TestModel_CatalogPublishResponse():
         catalog_publish_response_model_json2 = catalog_publish_response_model.to_dict()
         assert catalog_publish_response_model_json2 == catalog_publish_response_model_json
 
+class TestModel_ObjStoreConnectionResponseV2():
+    """
+    Test Class for ObjStoreConnectionResponseV2
+    """
+
+    def test_obj_store_connection_response_v2_serialization(self):
+        """
+        Test serialization/deserialization for ObjStoreConnectionResponseV2
+        """
+
+        # Construct dict forms of any model objects needed in order to build this model.
+
+        obj_store_connection_response_v2_cos_connections_item_model = {} # ObjStoreConnectionResponseV2CosConnectionsItem
+        obj_store_connection_response_v2_cos_connections_item_model['bucket_name'] = 'newbigsqlbucket'
+        obj_store_connection_response_v2_cos_connections_item_model['ccid'] = 'c28e0248-82ad-4aca-a658-90a626769fba'
+        obj_store_connection_response_v2_cos_connections_item_model['cid'] = 'CEPH10000'
+        obj_store_connection_response_v2_cos_connections_item_model['endpoint'] = 'http://jobs-m-2.fyre.ibm.com'
+        obj_store_connection_response_v2_cos_connections_item_model['removed'] = False
+        obj_store_connection_response_v2_cos_connections_item_model['service_type'] = 'CEPH'
+        obj_store_connection_response_v2_cos_connections_item_model['status'] = 'VALID'
+
+        # Construct a json representation of a ObjStoreConnectionResponseV2 model
+        obj_store_connection_response_v2_model_json = {}
+        obj_store_connection_response_v2_model_json['cos_connections'] = [obj_store_connection_response_v2_cos_connections_item_model]
+
+        # Construct a model instance of ObjStoreConnectionResponseV2 by calling from_dict on the json representation
+        obj_store_connection_response_v2_model = ObjStoreConnectionResponseV2.from_dict(obj_store_connection_response_v2_model_json)
+        assert obj_store_connection_response_v2_model != False
+
+        # Construct a model instance of ObjStoreConnectionResponseV2 by calling from_dict on the json representation
+        obj_store_connection_response_v2_model_dict = ObjStoreConnectionResponseV2.from_dict(obj_store_connection_response_v2_model_json).__dict__
+        obj_store_connection_response_v2_model2 = ObjStoreConnectionResponseV2(**obj_store_connection_response_v2_model_dict)
+
+        # Verify the model instances are equivalent
+        assert obj_store_connection_response_v2_model == obj_store_connection_response_v2_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        obj_store_connection_response_v2_model_json2 = obj_store_connection_response_v2_model.to_dict()
+        assert obj_store_connection_response_v2_model_json2 == obj_store_connection_response_v2_model_json
+
 class TestModel_PostPrimaryCatalog():
     """
     Test Class for PostPrimaryCatalog
@@ -2120,6 +3409,35 @@ class TestModel_PrimaryCatalogInfo():
         # Convert model instance back to dict and verify no loss of data
         primary_catalog_info_model_json2 = primary_catalog_info_model.to_dict()
         assert primary_catalog_info_model_json2 == primary_catalog_info_model_json
+
+class TestModel_SuccessResponse():
+    """
+    Test Class for SuccessResponse
+    """
+
+    def test_success_response_serialization(self):
+        """
+        Test serialization/deserialization for SuccessResponse
+        """
+
+        # Construct a json representation of a SuccessResponse model
+        success_response_model_json = {}
+        success_response_model_json['message'] = 'testString'
+
+        # Construct a model instance of SuccessResponse by calling from_dict on the json representation
+        success_response_model = SuccessResponse.from_dict(success_response_model_json)
+        assert success_response_model != False
+
+        # Construct a model instance of SuccessResponse by calling from_dict on the json representation
+        success_response_model_dict = SuccessResponse.from_dict(success_response_model_json).__dict__
+        success_response_model2 = SuccessResponse(**success_response_model_dict)
+
+        # Verify the model instances are equivalent
+        assert success_response_model == success_response_model2
+
+        # Convert model instance back to dict and verify no loss of data
+        success_response_model_json2 = success_response_model.to_dict()
+        assert success_response_model_json2 == success_response_model_json
 
 
 # endregion
