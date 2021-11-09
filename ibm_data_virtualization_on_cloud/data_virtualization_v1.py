@@ -14,11 +14,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# IBM OpenAPI SDK Code Generator Version: 3.34.1-ad041667-20210617-195430
+# IBM OpenAPI SDK Code Generator Version: 3.42.0-8746aaa4-20211102-213344
  
 """
 The Data Virtualization REST API connects to your service, so you can manage your virtual
 data, data sources, and user roles.
+
+API Version: 1.6.0
 """
 
 from typing import Dict, List
@@ -63,7 +65,7 @@ class DataVirtualizationV1(BaseService):
         Construct a new client for the Data Virtualization service.
 
         :param Authenticator authenticator: The authenticator specifies the authentication mechanism.
-               Get up to date information from https://github.com/IBM/python-sdk-core/blob/master/README.md
+               Get up to date information from https://github.com/IBM/python-sdk-core/blob/main/README.md
                about initializing the authenticator of your choice.
         """
         BaseService.__init__(self,
@@ -104,7 +106,7 @@ class DataVirtualizationV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -169,7 +171,7 @@ class DataVirtualizationV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -216,7 +218,43 @@ class DataVirtualizationV1(BaseService):
                                        headers=headers,
                                        params=params)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
+        return response
+
+
+    def get_object_store_connections_v2(self,
+        *,
+        jwt_auth_user_payload: str = None,
+        **kwargs
+    ) -> DetailedResponse:
+        """
+        Gets object store connection details.
+
+        :param str jwt_auth_user_payload: (optional) Supplied by proxy.  Do NOT add
+               your own value.
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `ObjStoreConnectionResponseV2` object
+        """
+
+        headers = {
+            'jwt-auth-user-payload': jwt_auth_user_payload
+        }
+        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
+                                      service_version='V1',
+                                      operation_id='get_object_store_connections_v2')
+        headers.update(sdk_headers)
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+        headers['Accept'] = 'application/json'
+
+        url = '/v2/datasource/objectstore_connections'
+        request = self.prepare_request(method='GET',
+                                       url=url,
+                                       headers=headers)
+
+        response = self.send(request, **kwargs)
         return response
 
     #########################
@@ -275,7 +313,7 @@ class DataVirtualizationV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -329,7 +367,7 @@ class DataVirtualizationV1(BaseService):
                                        headers=headers,
                                        params=params)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
     #########################
@@ -387,7 +425,7 @@ class DataVirtualizationV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -441,7 +479,7 @@ class DataVirtualizationV1(BaseService):
                                        headers=headers,
                                        params=params)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -483,7 +521,7 @@ class DataVirtualizationV1(BaseService):
                                        headers=headers,
                                        params=params)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
     #########################
@@ -496,11 +534,11 @@ class DataVirtualizationV1(BaseService):
         **kwargs
     ) -> DetailedResponse:
         """
-        Turn on or off WKC policy enforcement status.
+        Turn policy enforcement status on or off.
 
-        Turn on WKC policy enforcement status.
+        Turns policy enforcement status on or off.
 
-        :param str status: Set the status of WKC policy.
+        :param str status: Set the status of policy enforcement.
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
         :rtype: DetailedResponse with `dict` result representing a `TurnOnPolicyV2Response` object
@@ -528,7 +566,7 @@ class DataVirtualizationV1(BaseService):
                                        headers=headers,
                                        params=params)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -536,9 +574,9 @@ class DataVirtualizationV1(BaseService):
         **kwargs
     ) -> DetailedResponse:
         """
-        Get WKC policy enforcement status.
+        Get policy enforcement status.
 
-        Get WKC policy enforcement status, return enabled or disabled.
+        Get policy enforcement status, return enabled or disabled.
 
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
@@ -560,7 +598,7 @@ class DataVirtualizationV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
     #########################
@@ -645,7 +683,7 @@ class DataVirtualizationV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -693,7 +731,80 @@ class DataVirtualizationV1(BaseService):
                                        headers=headers,
                                        params=params)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
+        return response
+
+
+    def virtualize_cos_v2(self,
+        url: str,
+        virtual_name: str,
+        virtual_schema: str,
+        virtual_table_def: List['VirtualizeCosV2RequestVirtualTableDefItem'],
+        *,
+        is_replace: bool = None,
+        options: str = None,
+        jwt_auth_user_payload: str = None,
+        **kwargs
+    ) -> DetailedResponse:
+        """
+        Create a remote table for the ORC or Parquet file on a cloud object store (COS).
+
+        Create a remote table for the ORC or Parquet file on a cloud object store (COS).
+
+        :param str url: the file path with bucket name.
+        :param str virtual_name: the virtual table name.
+        :param str virtual_schema: the virtual table schema.
+        :param List[VirtualizeCosV2RequestVirtualTableDefItem] virtual_table_def:
+        :param bool is_replace: (optional) if repalce the existing one when create
+               the virtual table.
+        :param str options: (optional) the options used to virtualize file.
+        :param str jwt_auth_user_payload: (optional) Supplied by proxy.  Do NOT add
+               your own value.
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `SuccessResponse` object
+        """
+
+        if url is None:
+            raise ValueError('url must be provided')
+        if virtual_name is None:
+            raise ValueError('virtual_name must be provided')
+        if virtual_schema is None:
+            raise ValueError('virtual_schema must be provided')
+        if virtual_table_def is None:
+            raise ValueError('virtual_table_def must be provided')
+        virtual_table_def = [convert_model(x) for x in virtual_table_def]
+        headers = {
+            'jwt-auth-user-payload': jwt_auth_user_payload
+        }
+        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
+                                      service_version='V1',
+                                      operation_id='virtualize_cos_v2')
+        headers.update(sdk_headers)
+
+        data = {
+            'url': url,
+            'virtual_name': virtual_name,
+            'virtual_schema': virtual_schema,
+            'virtual_table_def': virtual_table_def,
+            'is_replace': is_replace,
+            'options': options
+        }
+        data = {k: v for (k, v) in data.items() if v is not None}
+        data = json.dumps(data)
+        headers['content-type'] = 'application/json'
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+        headers['Accept'] = 'application/json'
+
+        url = '/v2/virtualization/cloud_object_storages'
+        request = self.prepare_request(method='POST',
+                                       url=url,
+                                       headers=headers,
+                                       data=data)
+
+        response = self.send(request, **kwargs)
         return response
 
     #########################
@@ -707,7 +818,7 @@ class DataVirtualizationV1(BaseService):
         """
         Get primary catalog ID.
 
-        Get primary catalog ID from the table DVSYS.INSTANCE_INFO.
+        Gets the primary catalog ID from the DVSYS.INSTANCE_INFO table.
 
         :param dict headers: A `dict` containing the request headers
         :return: A `DetailedResponse` containing the result, headers and HTTP status code.
@@ -729,7 +840,7 @@ class DataVirtualizationV1(BaseService):
                                        url=url,
                                        headers=headers)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -740,7 +851,7 @@ class DataVirtualizationV1(BaseService):
         """
         Add primary catalog.
 
-        Insert primary catalog ID into table DVSYS.INSTANCE_INFO.
+        Inserts primary catalog ID into table DVSYS.INSTANCE_INFO.
 
         :param str guid:
         :param dict headers: A `dict` containing the request headers
@@ -773,7 +884,7 @@ class DataVirtualizationV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -814,7 +925,7 @@ class DataVirtualizationV1(BaseService):
                                        headers=headers,
                                        params=params)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
         return response
 
     #########################
@@ -829,9 +940,9 @@ class DataVirtualizationV1(BaseService):
         **kwargs
     ) -> DetailedResponse:
         """
-        publish virtual table to WKC.
+        Publish virtual tables to a catalog.
 
-        publish virtual tables to WKC.
+        Publishes virtual tables to a catalog.
 
         :param str catalog_id:
         :param bool allow_duplicates: The type of data source that you want to add.
@@ -873,7 +984,115 @@ class DataVirtualizationV1(BaseService):
                                        headers=headers,
                                        data=data)
 
-        response = self.send(request)
+        response = self.send(request, **kwargs)
+        return response
+
+    #########################
+    # Caches
+    #########################
+
+
+    def get_caches_list(self,
+        **kwargs
+    ) -> DetailedResponse:
+        """
+        List caches.
+
+        List all active, inactive and deleted caches in Data Virtualization.
+
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `CacheListResponse` object
+        """
+
+        headers = {}
+        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
+                                      service_version='V1',
+                                      operation_id='get_caches_list')
+        headers.update(sdk_headers)
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+        headers['Accept'] = 'application/json'
+
+        url = '/v1/caching/caches'
+        request = self.prepare_request(method='GET',
+                                       url=url,
+                                       headers=headers)
+
+        response = self.send(request, **kwargs)
+        return response
+
+
+    def get_cache(self,
+        id: str,
+        **kwargs
+    ) -> DetailedResponse:
+        """
+        List a cache.
+
+        List a specific cache in Data Virtualization.
+
+        :param str id: The ID of the cache to be listed.
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `CacheResponse` object
+        """
+
+        if id is None:
+            raise ValueError('id must be provided')
+        headers = {}
+        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
+                                      service_version='V1',
+                                      operation_id='get_cache')
+        headers.update(sdk_headers)
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+        headers['Accept'] = 'application/json'
+
+        path_param_keys = ['id']
+        path_param_values = self.encode_path_vars(id)
+        path_param_dict = dict(zip(path_param_keys, path_param_values))
+        url = '/v1/caching/caches/{id}'.format(**path_param_dict)
+        request = self.prepare_request(method='GET',
+                                       url=url,
+                                       headers=headers)
+
+        response = self.send(request, **kwargs)
+        return response
+
+
+    def get_cache_storage_detail(self,
+        **kwargs
+    ) -> DetailedResponse:
+        """
+        Fetch the cache storage.
+
+        Fetch the total cache storage and used capacities for active and inactive caches
+        in Data Virtualization.
+
+        :param dict headers: A `dict` containing the request headers
+        :return: A `DetailedResponse` containing the result, headers and HTTP status code.
+        :rtype: DetailedResponse with `dict` result representing a `StorageDetails` object
+        """
+
+        headers = {}
+        sdk_headers = get_sdk_headers(service_name=self.DEFAULT_SERVICE_NAME,
+                                      service_version='V1',
+                                      operation_id='get_cache_storage_detail')
+        headers.update(sdk_headers)
+
+        if 'headers' in kwargs:
+            headers.update(kwargs.get('headers'))
+        headers['Accept'] = 'application/json'
+
+        url = '/v1/caching/storage'
+        request = self.prepare_request(method='GET',
+                                       url=url,
+                                       headers=headers)
+
+        response = self.send(request, **kwargs)
         return response
 
 
@@ -881,6 +1100,493 @@ class DataVirtualizationV1(BaseService):
 # Models
 ##############################################################################
 
+
+class CacheListResponse():
+    """
+    CacheListResponse.
+
+    :attr List[CacheListResponseCachesItem] caches: (optional)
+    """
+
+    def __init__(self,
+                 *,
+                 caches: List['CacheListResponseCachesItem'] = None) -> None:
+        """
+        Initialize a CacheListResponse object.
+
+        :param List[CacheListResponseCachesItem] caches: (optional)
+        """
+        self.caches = caches
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'CacheListResponse':
+        """Initialize a CacheListResponse object from a json dictionary."""
+        args = {}
+        if 'caches' in _dict:
+            args['caches'] = [CacheListResponseCachesItem.from_dict(x) for x in _dict.get('caches')]
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a CacheListResponse object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'caches') and self.caches is not None:
+            _dict['caches'] = [x.to_dict() for x in self.caches]
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this CacheListResponse object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'CacheListResponse') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'CacheListResponse') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+class CacheListResponseCachesItem():
+    """
+    CacheListResponseCachesItem.
+
+    :attr str name: (optional) The name of this cache.
+    :attr str id: (optional) The unique ID of this cache.
+    :attr str query: (optional) The query that defines this cache.
+    :attr str owner_id: (optional) Owner ID of this cache.
+    :attr str type: (optional) Type of the cache - User-defined (U), Recommended
+          (R).
+    :attr str created_timestamp: (optional) Database timestamp at the time of cache
+          creation.
+    :attr str last_modified_timestamp: (optional) Database timestamp when this cache
+          was last modified (state change).
+    :attr str last_refresh_timestamp: (optional) Database timestamp when this cache
+          was last refreshed.
+    :attr str last_used_timestamp: (optional) Database timestamp when this cache was
+          last used.
+    :attr str state: (optional) State of this cache - one of
+          Enabled,Disabled,Deleted,Failed,Populating,Activating,Enabling,Disabling,Refreshing,Deleting.
+    :attr int size: (optional) Size of this cache (in KB).
+    :attr int cardinality: (optional) Cardinality (number of rows) of this cache.
+    :attr int time_taken_for_refresh: (optional) Time taken to refresh this cache
+          most recently (in milliseconds).
+    :attr int refresh_count: (optional) Number of times this cache has been
+          refreshed since creation.
+    :attr int hit_count: (optional) Hit Count of the cache (number of times this
+          cache was used).
+    :attr str refresh_schedule: (optional) Encoded cron-style representation of the
+          cache refresh schedule.
+    :attr str refresh_schedule_desc: (optional) Human-readable description of the
+          cache refresh schedule.
+    :attr str status_msg: (optional) Status message indicating the most recent
+          error/issue with the cache, if any.
+    """
+
+    def __init__(self,
+                 *,
+                 name: str = None,
+                 id: str = None,
+                 query: str = None,
+                 owner_id: str = None,
+                 type: str = None,
+                 created_timestamp: str = None,
+                 last_modified_timestamp: str = None,
+                 last_refresh_timestamp: str = None,
+                 last_used_timestamp: str = None,
+                 state: str = None,
+                 size: int = None,
+                 cardinality: int = None,
+                 time_taken_for_refresh: int = None,
+                 refresh_count: int = None,
+                 hit_count: int = None,
+                 refresh_schedule: str = None,
+                 refresh_schedule_desc: str = None,
+                 status_msg: str = None) -> None:
+        """
+        Initialize a CacheListResponseCachesItem object.
+
+        :param str name: (optional) The name of this cache.
+        :param str id: (optional) The unique ID of this cache.
+        :param str query: (optional) The query that defines this cache.
+        :param str owner_id: (optional) Owner ID of this cache.
+        :param str type: (optional) Type of the cache - User-defined (U),
+               Recommended (R).
+        :param str created_timestamp: (optional) Database timestamp at the time of
+               cache creation.
+        :param str last_modified_timestamp: (optional) Database timestamp when this
+               cache was last modified (state change).
+        :param str last_refresh_timestamp: (optional) Database timestamp when this
+               cache was last refreshed.
+        :param str last_used_timestamp: (optional) Database timestamp when this
+               cache was last used.
+        :param str state: (optional) State of this cache - one of
+               Enabled,Disabled,Deleted,Failed,Populating,Activating,Enabling,Disabling,Refreshing,Deleting.
+        :param int size: (optional) Size of this cache (in KB).
+        :param int cardinality: (optional) Cardinality (number of rows) of this
+               cache.
+        :param int time_taken_for_refresh: (optional) Time taken to refresh this
+               cache most recently (in milliseconds).
+        :param int refresh_count: (optional) Number of times this cache has been
+               refreshed since creation.
+        :param int hit_count: (optional) Hit Count of the cache (number of times
+               this cache was used).
+        :param str refresh_schedule: (optional) Encoded cron-style representation
+               of the cache refresh schedule.
+        :param str refresh_schedule_desc: (optional) Human-readable description of
+               the cache refresh schedule.
+        :param str status_msg: (optional) Status message indicating the most recent
+               error/issue with the cache, if any.
+        """
+        self.name = name
+        self.id = id
+        self.query = query
+        self.owner_id = owner_id
+        self.type = type
+        self.created_timestamp = created_timestamp
+        self.last_modified_timestamp = last_modified_timestamp
+        self.last_refresh_timestamp = last_refresh_timestamp
+        self.last_used_timestamp = last_used_timestamp
+        self.state = state
+        self.size = size
+        self.cardinality = cardinality
+        self.time_taken_for_refresh = time_taken_for_refresh
+        self.refresh_count = refresh_count
+        self.hit_count = hit_count
+        self.refresh_schedule = refresh_schedule
+        self.refresh_schedule_desc = refresh_schedule_desc
+        self.status_msg = status_msg
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'CacheListResponseCachesItem':
+        """Initialize a CacheListResponseCachesItem object from a json dictionary."""
+        args = {}
+        if 'name' in _dict:
+            args['name'] = _dict.get('name')
+        if 'id' in _dict:
+            args['id'] = _dict.get('id')
+        if 'query' in _dict:
+            args['query'] = _dict.get('query')
+        if 'owner_id' in _dict:
+            args['owner_id'] = _dict.get('owner_id')
+        if 'type' in _dict:
+            args['type'] = _dict.get('type')
+        if 'created_timestamp' in _dict:
+            args['created_timestamp'] = _dict.get('created_timestamp')
+        if 'last_modified_timestamp' in _dict:
+            args['last_modified_timestamp'] = _dict.get('last_modified_timestamp')
+        if 'last_refresh_timestamp' in _dict:
+            args['last_refresh_timestamp'] = _dict.get('last_refresh_timestamp')
+        if 'last_used_timestamp' in _dict:
+            args['last_used_timestamp'] = _dict.get('last_used_timestamp')
+        if 'state' in _dict:
+            args['state'] = _dict.get('state')
+        if 'size' in _dict:
+            args['size'] = _dict.get('size')
+        if 'cardinality' in _dict:
+            args['cardinality'] = _dict.get('cardinality')
+        if 'time_taken_for_refresh' in _dict:
+            args['time_taken_for_refresh'] = _dict.get('time_taken_for_refresh')
+        if 'refresh_count' in _dict:
+            args['refresh_count'] = _dict.get('refresh_count')
+        if 'hit_count' in _dict:
+            args['hit_count'] = _dict.get('hit_count')
+        if 'refresh_schedule' in _dict:
+            args['refresh_schedule'] = _dict.get('refresh_schedule')
+        if 'refresh_schedule_desc' in _dict:
+            args['refresh_schedule_desc'] = _dict.get('refresh_schedule_desc')
+        if 'status_msg' in _dict:
+            args['status_msg'] = _dict.get('status_msg')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a CacheListResponseCachesItem object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'name') and self.name is not None:
+            _dict['name'] = self.name
+        if hasattr(self, 'id') and self.id is not None:
+            _dict['id'] = self.id
+        if hasattr(self, 'query') and self.query is not None:
+            _dict['query'] = self.query
+        if hasattr(self, 'owner_id') and self.owner_id is not None:
+            _dict['owner_id'] = self.owner_id
+        if hasattr(self, 'type') and self.type is not None:
+            _dict['type'] = self.type
+        if hasattr(self, 'created_timestamp') and self.created_timestamp is not None:
+            _dict['created_timestamp'] = self.created_timestamp
+        if hasattr(self, 'last_modified_timestamp') and self.last_modified_timestamp is not None:
+            _dict['last_modified_timestamp'] = self.last_modified_timestamp
+        if hasattr(self, 'last_refresh_timestamp') and self.last_refresh_timestamp is not None:
+            _dict['last_refresh_timestamp'] = self.last_refresh_timestamp
+        if hasattr(self, 'last_used_timestamp') and self.last_used_timestamp is not None:
+            _dict['last_used_timestamp'] = self.last_used_timestamp
+        if hasattr(self, 'state') and self.state is not None:
+            _dict['state'] = self.state
+        if hasattr(self, 'size') and self.size is not None:
+            _dict['size'] = self.size
+        if hasattr(self, 'cardinality') and self.cardinality is not None:
+            _dict['cardinality'] = self.cardinality
+        if hasattr(self, 'time_taken_for_refresh') and self.time_taken_for_refresh is not None:
+            _dict['time_taken_for_refresh'] = self.time_taken_for_refresh
+        if hasattr(self, 'refresh_count') and self.refresh_count is not None:
+            _dict['refresh_count'] = self.refresh_count
+        if hasattr(self, 'hit_count') and self.hit_count is not None:
+            _dict['hit_count'] = self.hit_count
+        if hasattr(self, 'refresh_schedule') and self.refresh_schedule is not None:
+            _dict['refresh_schedule'] = self.refresh_schedule
+        if hasattr(self, 'refresh_schedule_desc') and self.refresh_schedule_desc is not None:
+            _dict['refresh_schedule_desc'] = self.refresh_schedule_desc
+        if hasattr(self, 'status_msg') and self.status_msg is not None:
+            _dict['status_msg'] = self.status_msg
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this CacheListResponseCachesItem object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'CacheListResponseCachesItem') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'CacheListResponseCachesItem') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+class CacheResponse():
+    """
+    CacheResponse.
+
+    :attr str name: (optional) The name of this cache.
+    :attr str id: (optional) The unique ID of this cache.
+    :attr str query: (optional) The query that defines this cache.
+    :attr str owner_id: (optional) Owner ID of this cache.
+    :attr str type: (optional) Type of the cache - User-defined (U), Recommended
+          (R).
+    :attr str created_timestamp: (optional) Database timestamp at the time of cache
+          creation.
+    :attr str last_modified_timestamp: (optional) Database timestamp when this cache
+          was last modified (state change).
+    :attr str last_refresh_timestamp: (optional) Database timestamp when this cache
+          was last refreshed.
+    :attr str last_used_timestamp: (optional) Database timestamp when this cache was
+          last used.
+    :attr str state: (optional) State of this cache - one of
+          Enabled,Disabled,Deleted,Failed,Populating,Activating,Enabling,Disabling,Refreshing,Deleting.
+    :attr int size: (optional) Size of this cache (in KB).
+    :attr int cardinality: (optional) Cardinality (number of rows) of this cache.
+    :attr int time_taken_for_refresh: (optional) Time taken to refresh this cache
+          most recently (in milliseconds).
+    :attr int refresh_count: (optional) Number of times this cache has been
+          refreshed since creation.
+    :attr int hit_count: (optional) Hit Count of the cache (number of times this
+          cache was used).
+    :attr str refresh_schedule: (optional) Encoded cron-style representation of the
+          cache refresh schedule.
+    :attr str refresh_schedule_desc: (optional) Human-readable description of the
+          cache refresh schedule.
+    :attr str status_msg: (optional) Status message indicating the most recent
+          error/issue with the cache, if any.
+    """
+
+    def __init__(self,
+                 *,
+                 name: str = None,
+                 id: str = None,
+                 query: str = None,
+                 owner_id: str = None,
+                 type: str = None,
+                 created_timestamp: str = None,
+                 last_modified_timestamp: str = None,
+                 last_refresh_timestamp: str = None,
+                 last_used_timestamp: str = None,
+                 state: str = None,
+                 size: int = None,
+                 cardinality: int = None,
+                 time_taken_for_refresh: int = None,
+                 refresh_count: int = None,
+                 hit_count: int = None,
+                 refresh_schedule: str = None,
+                 refresh_schedule_desc: str = None,
+                 status_msg: str = None) -> None:
+        """
+        Initialize a CacheResponse object.
+
+        :param str name: (optional) The name of this cache.
+        :param str id: (optional) The unique ID of this cache.
+        :param str query: (optional) The query that defines this cache.
+        :param str owner_id: (optional) Owner ID of this cache.
+        :param str type: (optional) Type of the cache - User-defined (U),
+               Recommended (R).
+        :param str created_timestamp: (optional) Database timestamp at the time of
+               cache creation.
+        :param str last_modified_timestamp: (optional) Database timestamp when this
+               cache was last modified (state change).
+        :param str last_refresh_timestamp: (optional) Database timestamp when this
+               cache was last refreshed.
+        :param str last_used_timestamp: (optional) Database timestamp when this
+               cache was last used.
+        :param str state: (optional) State of this cache - one of
+               Enabled,Disabled,Deleted,Failed,Populating,Activating,Enabling,Disabling,Refreshing,Deleting.
+        :param int size: (optional) Size of this cache (in KB).
+        :param int cardinality: (optional) Cardinality (number of rows) of this
+               cache.
+        :param int time_taken_for_refresh: (optional) Time taken to refresh this
+               cache most recently (in milliseconds).
+        :param int refresh_count: (optional) Number of times this cache has been
+               refreshed since creation.
+        :param int hit_count: (optional) Hit Count of the cache (number of times
+               this cache was used).
+        :param str refresh_schedule: (optional) Encoded cron-style representation
+               of the cache refresh schedule.
+        :param str refresh_schedule_desc: (optional) Human-readable description of
+               the cache refresh schedule.
+        :param str status_msg: (optional) Status message indicating the most recent
+               error/issue with the cache, if any.
+        """
+        self.name = name
+        self.id = id
+        self.query = query
+        self.owner_id = owner_id
+        self.type = type
+        self.created_timestamp = created_timestamp
+        self.last_modified_timestamp = last_modified_timestamp
+        self.last_refresh_timestamp = last_refresh_timestamp
+        self.last_used_timestamp = last_used_timestamp
+        self.state = state
+        self.size = size
+        self.cardinality = cardinality
+        self.time_taken_for_refresh = time_taken_for_refresh
+        self.refresh_count = refresh_count
+        self.hit_count = hit_count
+        self.refresh_schedule = refresh_schedule
+        self.refresh_schedule_desc = refresh_schedule_desc
+        self.status_msg = status_msg
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'CacheResponse':
+        """Initialize a CacheResponse object from a json dictionary."""
+        args = {}
+        if 'name' in _dict:
+            args['name'] = _dict.get('name')
+        if 'id' in _dict:
+            args['id'] = _dict.get('id')
+        if 'query' in _dict:
+            args['query'] = _dict.get('query')
+        if 'owner_id' in _dict:
+            args['owner_id'] = _dict.get('owner_id')
+        if 'type' in _dict:
+            args['type'] = _dict.get('type')
+        if 'created_timestamp' in _dict:
+            args['created_timestamp'] = _dict.get('created_timestamp')
+        if 'last_modified_timestamp' in _dict:
+            args['last_modified_timestamp'] = _dict.get('last_modified_timestamp')
+        if 'last_refresh_timestamp' in _dict:
+            args['last_refresh_timestamp'] = _dict.get('last_refresh_timestamp')
+        if 'last_used_timestamp' in _dict:
+            args['last_used_timestamp'] = _dict.get('last_used_timestamp')
+        if 'state' in _dict:
+            args['state'] = _dict.get('state')
+        if 'size' in _dict:
+            args['size'] = _dict.get('size')
+        if 'cardinality' in _dict:
+            args['cardinality'] = _dict.get('cardinality')
+        if 'time_taken_for_refresh' in _dict:
+            args['time_taken_for_refresh'] = _dict.get('time_taken_for_refresh')
+        if 'refresh_count' in _dict:
+            args['refresh_count'] = _dict.get('refresh_count')
+        if 'hit_count' in _dict:
+            args['hit_count'] = _dict.get('hit_count')
+        if 'refresh_schedule' in _dict:
+            args['refresh_schedule'] = _dict.get('refresh_schedule')
+        if 'refresh_schedule_desc' in _dict:
+            args['refresh_schedule_desc'] = _dict.get('refresh_schedule_desc')
+        if 'status_msg' in _dict:
+            args['status_msg'] = _dict.get('status_msg')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a CacheResponse object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'name') and self.name is not None:
+            _dict['name'] = self.name
+        if hasattr(self, 'id') and self.id is not None:
+            _dict['id'] = self.id
+        if hasattr(self, 'query') and self.query is not None:
+            _dict['query'] = self.query
+        if hasattr(self, 'owner_id') and self.owner_id is not None:
+            _dict['owner_id'] = self.owner_id
+        if hasattr(self, 'type') and self.type is not None:
+            _dict['type'] = self.type
+        if hasattr(self, 'created_timestamp') and self.created_timestamp is not None:
+            _dict['created_timestamp'] = self.created_timestamp
+        if hasattr(self, 'last_modified_timestamp') and self.last_modified_timestamp is not None:
+            _dict['last_modified_timestamp'] = self.last_modified_timestamp
+        if hasattr(self, 'last_refresh_timestamp') and self.last_refresh_timestamp is not None:
+            _dict['last_refresh_timestamp'] = self.last_refresh_timestamp
+        if hasattr(self, 'last_used_timestamp') and self.last_used_timestamp is not None:
+            _dict['last_used_timestamp'] = self.last_used_timestamp
+        if hasattr(self, 'state') and self.state is not None:
+            _dict['state'] = self.state
+        if hasattr(self, 'size') and self.size is not None:
+            _dict['size'] = self.size
+        if hasattr(self, 'cardinality') and self.cardinality is not None:
+            _dict['cardinality'] = self.cardinality
+        if hasattr(self, 'time_taken_for_refresh') and self.time_taken_for_refresh is not None:
+            _dict['time_taken_for_refresh'] = self.time_taken_for_refresh
+        if hasattr(self, 'refresh_count') and self.refresh_count is not None:
+            _dict['refresh_count'] = self.refresh_count
+        if hasattr(self, 'hit_count') and self.hit_count is not None:
+            _dict['hit_count'] = self.hit_count
+        if hasattr(self, 'refresh_schedule') and self.refresh_schedule is not None:
+            _dict['refresh_schedule'] = self.refresh_schedule
+        if hasattr(self, 'refresh_schedule_desc') and self.refresh_schedule_desc is not None:
+            _dict['refresh_schedule_desc'] = self.refresh_schedule_desc
+        if hasattr(self, 'status_msg') and self.status_msg is not None:
+            _dict['status_msg'] = self.status_msg
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this CacheResponse object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'CacheResponse') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'CacheResponse') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
 
 class CatalogPublishResponseDuplicateAssetsItem():
     """
@@ -1463,6 +2169,109 @@ class DatasourceConnectionsListDatasourceConnectionsItemDataSourcesItem():
         return self.__dict__ == other.__dict__
 
     def __ne__(self, other: 'DatasourceConnectionsListDatasourceConnectionsItemDataSourcesItem') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+class ObjStoreConnectionResponseV2CosConnectionsItem():
+    """
+    ObjStoreConnectionResponseV2CosConnectionsItem.
+
+    :attr str bucket_name: (optional)
+    :attr str ccid: (optional)
+    :attr str cid: (optional)
+    :attr str endpoint: (optional)
+    :attr bool removed: (optional)
+    :attr str service_type: (optional)
+    :attr str status: (optional)
+    """
+
+    def __init__(self,
+                 *,
+                 bucket_name: str = None,
+                 ccid: str = None,
+                 cid: str = None,
+                 endpoint: str = None,
+                 removed: bool = None,
+                 service_type: str = None,
+                 status: str = None) -> None:
+        """
+        Initialize a ObjStoreConnectionResponseV2CosConnectionsItem object.
+
+        :param str bucket_name: (optional)
+        :param str ccid: (optional)
+        :param str cid: (optional)
+        :param str endpoint: (optional)
+        :param bool removed: (optional)
+        :param str service_type: (optional)
+        :param str status: (optional)
+        """
+        self.bucket_name = bucket_name
+        self.ccid = ccid
+        self.cid = cid
+        self.endpoint = endpoint
+        self.removed = removed
+        self.service_type = service_type
+        self.status = status
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'ObjStoreConnectionResponseV2CosConnectionsItem':
+        """Initialize a ObjStoreConnectionResponseV2CosConnectionsItem object from a json dictionary."""
+        args = {}
+        if 'bucket_name' in _dict:
+            args['bucket_name'] = _dict.get('bucket_name')
+        if 'ccid' in _dict:
+            args['ccid'] = _dict.get('ccid')
+        if 'cid' in _dict:
+            args['cid'] = _dict.get('cid')
+        if 'endpoint' in _dict:
+            args['endpoint'] = _dict.get('endpoint')
+        if 'removed' in _dict:
+            args['removed'] = _dict.get('removed')
+        if 'service_type' in _dict:
+            args['service_type'] = _dict.get('service_type')
+        if 'status' in _dict:
+            args['status'] = _dict.get('status')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a ObjStoreConnectionResponseV2CosConnectionsItem object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'bucket_name') and self.bucket_name is not None:
+            _dict['bucket_name'] = self.bucket_name
+        if hasattr(self, 'ccid') and self.ccid is not None:
+            _dict['ccid'] = self.ccid
+        if hasattr(self, 'cid') and self.cid is not None:
+            _dict['cid'] = self.cid
+        if hasattr(self, 'endpoint') and self.endpoint is not None:
+            _dict['endpoint'] = self.endpoint
+        if hasattr(self, 'removed') and self.removed is not None:
+            _dict['removed'] = self.removed
+        if hasattr(self, 'service_type') and self.service_type is not None:
+            _dict['service_type'] = self.service_type
+        if hasattr(self, 'status') and self.status is not None:
+            _dict['status'] = self.status
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this ObjStoreConnectionResponseV2CosConnectionsItem object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'ObjStoreConnectionResponseV2CosConnectionsItem') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'ObjStoreConnectionResponseV2CosConnectionsItem') -> bool:
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
@@ -2077,6 +2886,207 @@ class PrimaryCatalogInfoMetadata():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
+class StorageDetails():
+    """
+    StorageDetails.
+
+    :attr str total_size: (optional) Total cache storage size.
+    :attr StorageDetailsEnabled enabled: (optional) Storage details of active
+          caches.
+    :attr StorageDetailsDisabled disabled: (optional) Storage details of inactive
+          caches.
+    """
+
+    def __init__(self,
+                 *,
+                 total_size: str = None,
+                 enabled: 'StorageDetailsEnabled' = None,
+                 disabled: 'StorageDetailsDisabled' = None) -> None:
+        """
+        Initialize a StorageDetails object.
+
+        :param str total_size: (optional) Total cache storage size.
+        :param StorageDetailsEnabled enabled: (optional) Storage details of active
+               caches.
+        :param StorageDetailsDisabled disabled: (optional) Storage details of
+               inactive caches.
+        """
+        self.total_size = total_size
+        self.enabled = enabled
+        self.disabled = disabled
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'StorageDetails':
+        """Initialize a StorageDetails object from a json dictionary."""
+        args = {}
+        if 'total_size' in _dict:
+            args['total_size'] = _dict.get('total_size')
+        if 'enabled' in _dict:
+            args['enabled'] = StorageDetailsEnabled.from_dict(_dict.get('enabled'))
+        if 'disabled' in _dict:
+            args['disabled'] = StorageDetailsDisabled.from_dict(_dict.get('disabled'))
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a StorageDetails object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'total_size') and self.total_size is not None:
+            _dict['total_size'] = self.total_size
+        if hasattr(self, 'enabled') and self.enabled is not None:
+            _dict['enabled'] = self.enabled.to_dict()
+        if hasattr(self, 'disabled') and self.disabled is not None:
+            _dict['disabled'] = self.disabled.to_dict()
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this StorageDetails object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'StorageDetails') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'StorageDetails') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+class StorageDetailsDisabled():
+    """
+    Storage details of inactive caches.
+
+    :attr int size: (optional) Total size of all inactive caches (in KB).
+    :attr int count: (optional) Number of inactive caches.
+    """
+
+    def __init__(self,
+                 *,
+                 size: int = None,
+                 count: int = None) -> None:
+        """
+        Initialize a StorageDetailsDisabled object.
+
+        :param int size: (optional) Total size of all inactive caches (in KB).
+        :param int count: (optional) Number of inactive caches.
+        """
+        self.size = size
+        self.count = count
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'StorageDetailsDisabled':
+        """Initialize a StorageDetailsDisabled object from a json dictionary."""
+        args = {}
+        if 'size' in _dict:
+            args['size'] = _dict.get('size')
+        if 'count' in _dict:
+            args['count'] = _dict.get('count')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a StorageDetailsDisabled object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'size') and self.size is not None:
+            _dict['size'] = self.size
+        if hasattr(self, 'count') and self.count is not None:
+            _dict['count'] = self.count
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this StorageDetailsDisabled object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'StorageDetailsDisabled') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'StorageDetailsDisabled') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+class StorageDetailsEnabled():
+    """
+    Storage details of active caches.
+
+    :attr int size: (optional) Total size of all active caches (in KB).
+    :attr int count: (optional) Number of active caches.
+    """
+
+    def __init__(self,
+                 *,
+                 size: int = None,
+                 count: int = None) -> None:
+        """
+        Initialize a StorageDetailsEnabled object.
+
+        :param int size: (optional) Total size of all active caches (in KB).
+        :param int count: (optional) Number of active caches.
+        """
+        self.size = size
+        self.count = count
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'StorageDetailsEnabled':
+        """Initialize a StorageDetailsEnabled object from a json dictionary."""
+        args = {}
+        if 'size' in _dict:
+            args['size'] = _dict.get('size')
+        if 'count' in _dict:
+            args['count'] = _dict.get('count')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a StorageDetailsEnabled object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'size') and self.size is not None:
+            _dict['size'] = self.size
+        if hasattr(self, 'count') and self.count is not None:
+            _dict['count'] = self.count
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this StorageDetailsEnabled object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'StorageDetailsEnabled') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'StorageDetailsEnabled') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
 class TablesForRoleResponse():
     """
     TablesForRoleResponse.
@@ -2252,6 +3262,72 @@ class TurnOnPolicyV2Response():
         return self.__dict__ == other.__dict__
 
     def __ne__(self, other: 'TurnOnPolicyV2Response') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+class VirtualizeCosV2RequestVirtualTableDefItem():
+    """
+    VirtualizeCosV2RequestVirtualTableDefItem.
+
+    :attr str column_name:
+    :attr str column_type:
+    """
+
+    def __init__(self,
+                 column_name: str,
+                 column_type: str) -> None:
+        """
+        Initialize a VirtualizeCosV2RequestVirtualTableDefItem object.
+
+        :param str column_name:
+        :param str column_type:
+        """
+        self.column_name = column_name
+        self.column_type = column_type
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'VirtualizeCosV2RequestVirtualTableDefItem':
+        """Initialize a VirtualizeCosV2RequestVirtualTableDefItem object from a json dictionary."""
+        args = {}
+        if 'column_name' in _dict:
+            args['column_name'] = _dict.get('column_name')
+        else:
+            raise ValueError('Required property \'column_name\' not present in VirtualizeCosV2RequestVirtualTableDefItem JSON')
+        if 'column_type' in _dict:
+            args['column_type'] = _dict.get('column_type')
+        else:
+            raise ValueError('Required property \'column_type\' not present in VirtualizeCosV2RequestVirtualTableDefItem JSON')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a VirtualizeCosV2RequestVirtualTableDefItem object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'column_name') and self.column_name is not None:
+            _dict['column_name'] = self.column_name
+        if hasattr(self, 'column_type') and self.column_type is not None:
+            _dict['column_type'] = self.column_type
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this VirtualizeCosV2RequestVirtualTableDefItem object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'VirtualizeCosV2RequestVirtualTableDefItem') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'VirtualizeCosV2RequestVirtualTableDefItem') -> bool:
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
@@ -2529,6 +3605,63 @@ class CatalogPublishResponse():
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
 
+class ObjStoreConnectionResponseV2():
+    """
+    ObjStoreConnectionResponseV2.
+
+    :attr List[ObjStoreConnectionResponseV2CosConnectionsItem] cos_connections:
+          (optional)
+    """
+
+    def __init__(self,
+                 *,
+                 cos_connections: List['ObjStoreConnectionResponseV2CosConnectionsItem'] = None) -> None:
+        """
+        Initialize a ObjStoreConnectionResponseV2 object.
+
+        :param List[ObjStoreConnectionResponseV2CosConnectionsItem]
+               cos_connections: (optional)
+        """
+        self.cos_connections = cos_connections
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'ObjStoreConnectionResponseV2':
+        """Initialize a ObjStoreConnectionResponseV2 object from a json dictionary."""
+        args = {}
+        if 'cos_connections' in _dict:
+            args['cos_connections'] = [ObjStoreConnectionResponseV2CosConnectionsItem.from_dict(x) for x in _dict.get('cos_connections')]
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a ObjStoreConnectionResponseV2 object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'cos_connections') and self.cos_connections is not None:
+            _dict['cos_connections'] = [x.to_dict() for x in self.cos_connections]
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this ObjStoreConnectionResponseV2 object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'ObjStoreConnectionResponseV2') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'ObjStoreConnectionResponseV2') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
 class PostPrimaryCatalog():
     """
     PostPrimaryCatalog.
@@ -2673,5 +3806,61 @@ class PrimaryCatalogInfo():
         return self.__dict__ == other.__dict__
 
     def __ne__(self, other: 'PrimaryCatalogInfo') -> bool:
+        """Return `true` when self and other are not equal, false otherwise."""
+        return not self == other
+
+class SuccessResponse():
+    """
+    SuccessResponse.
+
+    :attr str message:
+    """
+
+    def __init__(self,
+                 message: str) -> None:
+        """
+        Initialize a SuccessResponse object.
+
+        :param str message:
+        """
+        self.message = message
+
+    @classmethod
+    def from_dict(cls, _dict: Dict) -> 'SuccessResponse':
+        """Initialize a SuccessResponse object from a json dictionary."""
+        args = {}
+        if 'message' in _dict:
+            args['message'] = _dict.get('message')
+        else:
+            raise ValueError('Required property \'message\' not present in SuccessResponse JSON')
+        return cls(**args)
+
+    @classmethod
+    def _from_dict(cls, _dict):
+        """Initialize a SuccessResponse object from a json dictionary."""
+        return cls.from_dict(_dict)
+
+    def to_dict(self) -> Dict:
+        """Return a json dictionary representing this model."""
+        _dict = {}
+        if hasattr(self, 'message') and self.message is not None:
+            _dict['message'] = self.message
+        return _dict
+
+    def _to_dict(self):
+        """Return a json dictionary representing this model."""
+        return self.to_dict()
+
+    def __str__(self) -> str:
+        """Return a `str` version of this SuccessResponse object."""
+        return json.dumps(self.to_dict(), indent=2)
+
+    def __eq__(self, other: 'SuccessResponse') -> bool:
+        """Return `true` when self and other are equal, false otherwise."""
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
+    def __ne__(self, other: 'SuccessResponse') -> bool:
         """Return `true` when self and other are not equal, false otherwise."""
         return not self == other
