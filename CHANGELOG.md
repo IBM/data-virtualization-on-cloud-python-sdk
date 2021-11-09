@@ -1,3 +1,10 @@
+# [0.1.0](https://github.com/IBM/data-virtualization-on-cloud-python-sdk/compare/v0.0.3...v0.1.0) (2021-11-09)
+
+
+### Features
+
+* **global catalog:** add api SDK for cache and object store ([#16](https://github.com/IBM/data-virtualization-on-cloud-python-sdk/issues/16)) ([3386b06](https://github.com/IBM/data-virtualization-on-cloud-python-sdk/commit/3386b06c8f04030a3303c896fd21237709902833))
+
 ## [0.0.3](https://github.com/IBM/data-virtualization-on-cloud-python-sdk/compare/v0.0.2...v0.0.3) (2021-09-27)
 
 
